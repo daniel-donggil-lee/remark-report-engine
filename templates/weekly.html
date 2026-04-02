@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{student_name}} — {{week_label}} 주간 리포트</title>
+<style>
+  :root {
+    --green:  #1f5c30;
+    --green2: #34a853;
+    --yellow: #b8860b;
+    --red:    #c53030;
+    --orange: #e07b39;
+    --gray:   #6b7280;
+    --bg:     #f8faf9;
+    --card:   #ffffff;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: var(--green);
+    padding: 20px 24px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header img { height: 40px; object-fit: contain; }
+  .header-info { color: white; }
+  .header-title { font-size: 11px; opacity: .7; letter-spacing: .08em; text-transform: uppercase; }
+  .header-name  { font-size: 20px; font-weight: 700; margin-top: 2px; }
+  .header-sub   { font-size: 12px; opacity: .75; margin-top: 1px; }
+
+  /* ── 본문 ── */
+  .body { padding: 16px; max-width: 480px; margin: 0 auto; }
+
+  /* ── 신호등 배너 ── */
+  .traffic-banner {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .traffic-banner.traffic-green  { background: #e6f4ea; border-left: 5px solid var(--green2); }
+  .traffic-banner.traffic-yellow { background: #fff8e1; border-left: 5px solid #f9a825; }
+  .traffic-banner.traffic-red    { background: #fde8e8; border-left: 5px solid var(--red); }
+  .traffic-dot {
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  }
+  .traffic-green  .traffic-dot { background: var(--green2); }
+  .traffic-yellow .traffic-dot { background: #f9a825; }
+  .traffic-red    .traffic-dot { background: var(--red); }
+  .traffic-info { flex: 1; }
+  .traffic-pct   { font-size: 22px; font-weight: 700; }
+  .traffic-green  .traffic-pct { color: var(--green); }
+  .traffic-yellow .traffic-pct { color: #7c6200; }
+  .traffic-red    .traffic-pct { color: var(--red); }
+  .traffic-label { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* ── 점수 카드 ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .score-row:last-child { margin-bottom: 0; }
+  .score-label { font-size: 12px; color: var(--gray); width: 60px; flex-shrink: 0; }
+  .score-bar-wrap { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .score-bar-bg { flex: 1; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 3px; }
+  .score-val { font-size: 12px; font-weight: 600; width: 60px; text-align: right; flex-shrink: 0; }
+
+  /* ── 메타 칩 ── */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .chip-ok     { background: #e6f4ea; color: var(--green); }
+  .chip-warn   { background: #fff8e1; color: #7c6200; }
+  .chip-absent { background: #fde8e8; color: var(--red); }
+
+  /* ── AI 한줄 평 ── */
+  .comment-box {
+    background: #f0f4f2;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #2d3a32;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--green);
+  }
+
+  /* ── CTA 버튼 ── */
+  .cta-wrap { text-align: center; margin-top: 20px; padding-bottom: 28px; }
+  .btn {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 13px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .02em;
+  }
+  .btn-primary { background: var(--green); color: white; }
+
+  /* ── 푸터 ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    padding: 12px 16px 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="data:image/png;base64,{{logo_base64}}" alt="리마크에듀 로고">
+  <div class="header-info">
+    <div class="header-title">{{week_label}} 주간 리포트</div>
+    <div class="header-name">{{student_name}}</div>
+    <div class="header-sub">{{school}} {{grade}} · 담당: {{teacher_name}}</div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- 신호등 배너 -->
+  <div class="traffic-banner {{traffic_class}}">
+    <div class="traffic-dot"></div>
+    <div class="traffic-info">
+      <div class="traffic-pct">{{combined_pct}}%</div>
+      <div class="traffic-label">종합 정답률 (R+K) · {{traffic_label}}</div>
+    </div>
+  </div>
+
+  <!-- R / K 점수 -->
+  <div class="card">
+    <div class="card-title">이번 주 점수</div>
+    <div class="score-row">
+      <div class="score-label">R (개념)</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width:{{r_pct}}%;background:#34a853;"></div>
+        </div>
+        <div class="score-val">{{r_score}}/{{r_total}}</div>
+      </div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">K (유지)</div>
+      <div class="score-bar-wrap">
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width:{{k_pct}}%;background:#1f5c30;"></div>
+        </div>
+        <div class="score-val">{{k_score}}/{{k_total}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 과제·출결 -->
+  <div class="card">
+    <div class="card-title">과제 · 출결</div>
+    <div class="chips">
+      <div class="chip chip-ok">📋 과제 {{homework}}</div>
+      <div class="chip chip-ok">🏫 출결 {{attendance}}</div>
+    </div>
+  </div>
+
+  <!-- AI 한줄 평 -->
+  <div class="comment-box">{{ai_comment}}</div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <a href="{{cta_link}}" class="btn btn-primary">상담 신청하기</a>
+  </div>
+
+</div>
+
+<div class="footer">리마크에듀 · 본 리포트는 자동 생성되었습니다.</div>
+
+</body>
+</html>
