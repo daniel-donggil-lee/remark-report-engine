@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{student_name}} — {{week_label}} 영어 주간 리포트</title>
+<title>{{student_name}} — {{week_label}} 영어 수업 리포트</title>
 <style>
   :root {
     --blue:   #2563EB;
@@ -136,6 +136,7 @@
   }
   .en-pass   { background: #dbeafe; color: var(--blue); }
   .en-retest { background: #fde8e8; color: var(--red); }
+  .en-done   { background: #dcfce7; color: #15803d; }
 
   /* ── 추이 차트 ── */
   .trend-wrap { margin-top: 4px; }
@@ -193,7 +194,7 @@
 <div class="header">
   <img src="data:image/png;base64,{{logo_base64}}" alt="리마크에듀 로고">
   <div class="header-info">
-    <div class="header-title">{{week_label}} 영어 주간 리포트</div>
+    <div class="header-title">{{week_label}} 영어 수업 리포트</div>
     <div class="header-name">{{student_name}}</div>
     <div class="header-sub">{{school}} {{grade}} · 담당: {{teacher_name}}</div>
   </div>
@@ -210,23 +211,23 @@
     </div>
   </div>
 
+  <!-- 수업 내용 (있을 때만) -->
+  {{lesson_section}}
+
   <!-- 시험별 결과 -->
   <div class="card">
-    <div class="card-title">이번 주 시험 결과</div>
+    <div class="card-title">이번 회차 시험 결과</div>
     {{exam_bars}}
   </div>
 
-  <!-- 3주 추이 -->
+  <!-- 3회차 추이 -->
   <div class="card">
-    <div class="card-title">3주 성취율 추이</div>
+    <div class="card-title">최근 성취율 추이</div>
     <div class="trend-wrap">{{trend_chart}}</div>
   </div>
 
   <!-- 강사 메모 (있을 때만) -->
   {{memo_section}}
-
-  <!-- AI 한줄 평 -->
-  <div class="comment-box">{{ai_comment}}</div>
 
   <!-- CTA -->
   <div class="cta-wrap">

@@ -31,17 +31,18 @@ from config        import ACADEMY, SHEETS
 from sheets_client import (
     read_students, read_weekly_scores, read_monthly_scores,
     read_teacher_memos, read_monthly_history, log_send,
-    read_english_students, read_english_weekly, read_english_memos,
+    read_english_students, read_english_weekly,
     read_english_history, log_english_send,
 )
-from ai_comments   import weekly_comment, monthly_comments_batch, english_weekly_comment
+from ai_comments   import weekly_comment, monthly_comments_batch
 from report_engine import (
     load_logo_b64, load_template, class_avg,
     render_weekly, render_monthly, render_english_weekly,
 )
 from sender import send_batch
 
-SID = ACADEMY['spreadsheet_id']
+SID     = ACADEMY['spreadsheet_id']           # 국어
+ENG_SID = ACADEMY['english_spreadsheet_id']   # 영어
 
 
 # ══════════════════════════════════════════════════════════════
@@ -283,13 +284,13 @@ def run_english(dry_run=False, student_filter=None, target_date=None):
     print('══════════════════════════════════════')
 
     # [1] Sheets 읽기
-    print('\n[1/5] Google Sheets 읽기')
-    master_rows = read_english_students(SID)
+    print('\n[1/4] Google Sheets 읽기')
+    master_rows = read_english_students(ENG_SID)
     master      = {r['이름']: r for r in master_rows}
 
-    weekly_rows, week_date = read_english_weekly(SID, target_date=target_date)
+    weekly_rows, week_date = read_english_weekly(ENG_SID, target_date=target_date)
     if not weekly_rows:
-        print('  ❌ 영어 주간 데이터 없음')
+        print('  ❌ 영어 수업 데이터 없음')
         return
     week_label = week_date or datetime.now().strftime('%Y-%m-%d')
     print(f'  날짜: {week_label}, {len(weekly_rows)}개 행')
@@ -297,9 +298,6 @@ def run_english(dry_run=False, student_filter=None, target_date=None):
     if student_filter:
         weekly_rows = [r for r in weekly_rows if r.get('이름', '') == student_filter]
         print(f'  필터: {student_filter}')
-
-    memo_rows = read_english_memos(SID, target_date=week_date)
-    memo_map  = {r.get('이름', ''): r.get('메모', '') for r in memo_rows}
 
     # 학생별 그룹핑
     grouped = defaultdict(list)
@@ -313,7 +311,10 @@ def run_english(dry_run=False, student_filter=None, target_date=None):
         total_correct = sum(int(r.get('맞은수', 0) or 0) for r in rows)
         total_all     = sum(int(r.get('전체수',  1) or 1) for r in rows)
         overall_pct   = round(total_correct / total_all * 100) if total_all else 0
-        history       = read_english_history(SID, student_name=name, last_n=3)
+        history       = read_english_history(ENG_SID, student_name=name, last_n=3)
+        # 수업내용: 같은 반 첫 행, 강사메모: 비어있지 않은 첫 행
+        lesson_content = rows[0].get('수업내용', '') if rows else ''
+        teacher_memo   = next((r.get('강사메모', '') for r in rows if r.get('강사메모')), '')
         s = {
             'name':            name,
             'school':          info.get('학교', ''),
@@ -325,20 +326,14 @@ def run_english(dry_run=False, student_filter=None, target_date=None):
             'overall_correct': total_correct,
             'overall_total':   total_all,
             'overall_pct':     overall_pct,
-            'memo':            memo_map.get(name, ''),
+            'lesson_content':  lesson_content,
+            'memo':            teacher_memo,
             'history':         history,
         }
         students.append(s)
 
-    # [3] AI 한줄 평
-    print('\n[2/5] AI 한줄 평 생성 (Haiku)')
-    for s in students:
-        print(f'  ⏳ {s["name"]} ... ', end='', flush=True)
-        s['ai_comment'] = english_weekly_comment(s)
-        print('✅')
-
-    # [4] HTML 생성
-    print('\n[3/5] HTML 생성')
+    # [2] HTML 생성
+    print('\n[2/4] HTML 생성')
     template   = load_template('weekly_en')
     logo_b64   = load_logo_b64()
     out_en_dir = os.path.join(OUT_DIR, 'english', week_label)
@@ -346,33 +341,32 @@ def run_english(dry_run=False, student_filter=None, target_date=None):
 
     for s in students:
         url   = _slug_url(s['slug'], 'english', week_label)
-        html  = render_english_weekly(template, s, logo_b64, week_label, s['ai_comment'], url)
+        html  = render_english_weekly(template, s, logo_b64, week_label, url)
         fname = os.path.join(out_en_dir, f"영어_{s['name']}_{week_label}.html")
         with open(fname, 'w', encoding='utf-8') as f:
             f.write(html)
         s['report_url'] = url
         print(f'  ✅ {fname}')
 
-    # [5] 카톡 발송
-    print(f'\n[4/5] 카톡 발송 (dry_run={dry_run})')
+    # [3] 카톡 발송
+    print(f'\n[3/4] 카톡 발송 (dry_run={dry_run})')
     kakao_targets = []
     for s in students:
         kakao_text = (
             f"안녕하세요, 리마크학원 {s['teacher_name']}입니다.\n\n"
-            f"{s['name']} 학생의 {week_label} 영어 학습 리포트를 보내드립니다.\n\n"
-            f"{s['ai_comment']}\n\n"
+            f"{s['name']} 학생의 {week_label} 영어 수업 리포트를 보내드립니다.\n\n"
             f"자세한 내용: {s['report_url']}"
         )
         kakao_targets.append({'name': s['name'], 'phone': s['phone'], 'text': kakao_text})
 
     results = send_batch(kakao_targets, dry_run=dry_run)
 
-    # [6] 발송내역 기록
+    # [4] 발송내역 기록
     if not dry_run:
-        print('\n[5/5] 발송내역 기록')
+        print('\n[4/4] 발송내역 기록')
         for s, r in zip(students, results):
             status = '성공' if r.get('ok') else '실패'
-            log_english_send(SID, s['name'], s['report_url'], status)
+            log_english_send(ENG_SID, s['name'], s['report_url'], status)
 
     ok   = sum(1 for r in results if r.get('ok'))
     fail = len(results) - ok

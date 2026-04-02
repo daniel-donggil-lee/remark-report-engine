@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-영어 주간 리포트 — 데모 생성기 (Sheets·API 연결 없이 더미 데이터로 즉시 생성)
+영어 수업 리포트 — 데모 생성기 (Sheets·API 연결 없이 더미 데이터로 즉시 생성)
 실행: python3 demo/generate_english_demo.py
 출력: demo/english-sample.html
 """
@@ -24,14 +24,15 @@ STUDENT = {
     'phone':           '010-0000-0000',
     'slug':            'lee-seoyeon',
     'exams': [
-        {'시험유형': '단어',  '맞은수': '20', '전체수': '20', '재시여부': 'X'},
-        {'시험유형': '문법',  '맞은수': '14', '전체수': '20', '재시여부': 'X'},
-        {'시험유형': '독해',  '맞은수': '8',  '전체수': '10', '재시여부': 'X'},
+        {'시험유형': '단어',  '맞은수': '20', '전체수': '20', '재시상태': ''},
+        {'시험유형': '문법',  '맞은수': '12', '전체수': '20', '재시상태': '예정', '재시약속일': '4/10'},
+        {'시험유형': '독해',  '맞은수': '8',  '전체수': '10', '재시상태': '이번완료'},
     ],
-    'overall_correct': 42,
+    'overall_correct': 40,
     'overall_total':   50,
-    'overall_pct':     84,
-    'memo':            '이번 주 문법 파트에서 관계대명사 구분을 어려워했지만, 수업 후 재확인에서 깔끔하게 정리했어요. 독해 속도도 눈에 띄게 빨라지고 있습니다.',
+    'overall_pct':     80,
+    'lesson_content':  'Unit 7 관계대명사 who / which / that 구분 및 계속적 용법. 독해 지문: The Secret Life of Trees (p.142~145) 핵심 구문 분석.',
+    'memo':            '문법 파트에서 관계대명사 계속적 용법을 어려워했습니다. 재시 약속일까지 p.98 예제 전부 풀어오기로 했습니다.',
     'history': [
         {'month': '03-24', 'score': 38, 'total': 50},
         {'month': '03-31', 'score': 40, 'total': 50},
@@ -40,9 +41,7 @@ STUDENT = {
 }
 
 WEEK_LABEL  = '2026-04-07'
-AI_COMMENT  = '이번 주 단어 시험을 완벽하게 마무리하며 꾸준한 암기 습관을 잘 보여주었어요. 독해 속도와 정확도가 함께 오르고 있어 다음 주 결과도 기대됩니다.'
 REPORT_URL  = 'https://www.remarkedu.com/report/english/2026-04-07/lee-seoyeon.html'
-CTA_LINK    = 'https://open.kakao.com/o/XXXXXXXX'
 
 # ─────────────────────────────────────────────────────────────
 # 생성
@@ -51,10 +50,7 @@ print('⏳ 영어 데모 리포트 생성 중...')
 
 logo_b64 = load_logo_b64()
 template = load_template('weekly_en')
-html     = render_english_weekly(template, STUDENT, logo_b64, WEEK_LABEL, AI_COMMENT, REPORT_URL)
-
-# CTA 링크 데모용으로 교체
-html = html.replace(CTA_LINK, CTA_LINK)
+html     = render_english_weekly(template, STUDENT, logo_b64, WEEK_LABEL, REPORT_URL)
 
 with open(OUT_PATH, 'w', encoding='utf-8') as f:
     f.write(html)

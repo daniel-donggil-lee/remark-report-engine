@@ -171,10 +171,10 @@ def read_english_students(spreadsheet_id, sheet_name='엔진_영어_학생명단
     return read_sheet(spreadsheet_id, sheet_name)
 
 
-def read_english_weekly(spreadsheet_id, sheet_name='엔진_영어_주간시험', target_date=None):
+def read_english_weekly(spreadsheet_id, sheet_name='엔진_영어_수업기록', target_date=None):
     """
-    영어 주간시험 탭. target_date=None이면 최신 날짜 자동 선택.
-    반환: ([{날짜, 이름, 시험유형, 맞은수, 전체수, 재시여부}, ...], date)
+    영어 수업기록 탭. target_date=None이면 최신 날짜 자동 선택.
+    반환: ([{날짜, 이름, 수업내용, 시험유형, 맞은수, 전체수, 재시상태, 재시점수, 재시약속일, 강사메모}, ...], date)
     """
     rows = read_sheet(spreadsheet_id, sheet_name)
     if not rows:
@@ -190,19 +190,7 @@ def read_english_weekly(spreadsheet_id, sheet_name='엔진_영어_주간시험',
     return filtered, latest
 
 
-def read_english_memos(spreadsheet_id, sheet_name='엔진_영어_강사메모', target_date=None):
-    """영어 강사메모 탭. 반환: [{날짜, 이름, 메모}, ...]"""
-    rows = read_sheet(spreadsheet_id, sheet_name)
-    if not rows:
-        return []
-    if target_date:
-        return [r for r in rows if r.get('날짜', '') == target_date]
-    dates = sorted(set(r.get('날짜', '') for r in rows if r.get('날짜')), reverse=True)
-    latest = dates[0] if dates else None
-    return [r for r in rows if r.get('날짜', '') == latest]
-
-
-def read_english_history(spreadsheet_id, sheet_name='엔진_영어_주간시험', student_name=None, last_n=3):
+def read_english_history(spreadsheet_id, sheet_name='엔진_영어_수업기록', student_name=None, last_n=3):
     """학생별 최근 N주 주간 평균 성취율 이력"""
     rows = read_sheet(spreadsheet_id, sheet_name)
     if student_name:
