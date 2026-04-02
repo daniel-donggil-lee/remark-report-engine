@@ -7,587 +7,870 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
+  :root {
+    --g1: #1B4332;
+    --g2: #2D6A4F;
+    --g3: #40916C;
+    --g4: #74C69D;
+    --g5: #D8F3DC;
+    --ink: #0D1117;
+    --mid: #374151;
+    --sub: #6B7280;
+    --line: #E5E7EB;
+    --bg:  #F9FAFB;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Noto Sans KR', -apple-system, sans-serif;
     background: #fff;
-    color: #111;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* ── 섹션 공통 ── */
-  section {
+  /* ── 공통 섹션 ── */
+  .sec {
+    width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 72px 48px;
-    max-width: 800px;
+    padding: 80px 60px;
+  }
+
+  .inner {
+    max-width: 780px;
     margin: 0 auto;
+    width: 100%;
   }
 
-  @media (max-width: 600px) {
-    section { padding: 56px 28px; }
+  @media (max-width: 640px) {
+    .sec { padding: 60px 28px; }
   }
 
-  /* ══════════════════════════
-     01. 커버
-  ══════════════════════════ */
-  .s-cover {
-    min-height: 100vh;
-    background: #fff;
-    justify-content: flex-end;
-    padding-bottom: 80px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .cover-kicker {
-    font-size: 12px;
-    font-weight: 700;
-    color: #2D6A4F;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .cover-h1 {
-    font-size: clamp(36px, 7vw, 64px);
-    font-weight: 900;
-    line-height: 1.15;
-    color: #111;
-    margin-bottom: 24px;
-    word-break: keep-all;
-  }
-
-  .cover-h1 .green { color: #2D6A4F; }
-
-  .cover-body {
-    font-size: 17px;
-    color: #555;
-    line-height: 1.8;
-    max-width: 540px;
-    word-break: keep-all;
-  }
-
-  /* ══════════════════════════
-     02. 숫자 임팩트
-  ══════════════════════════ */
-  .s-numbers { background: #111; color: #fff; max-width: 100%; padding: 80px 48px; }
-  .s-numbers-inner { max-width: 800px; margin: 0 auto; }
-
-  .num-label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .15em;
-    color: #74C69D;
-    margin-bottom: 48px;
-  }
-
-  .num-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-  }
-
-  @media (max-width: 600px) {
-    .num-grid { grid-template-columns: 1fr; }
-  }
-
-  .num-item {
-    padding: 32px 0;
-    border-right: 1px solid #333;
-    padding-right: 40px;
-    padding-left: 8px;
-  }
-
-  .num-item:first-child { padding-left: 0; }
-  .num-item:last-child { border-right: none; padding-right: 0; padding-left: 40px; }
-
-  @media (max-width: 600px) {
-    .num-item { border-right: none; border-bottom: 1px solid #333; padding: 28px 0; padding-left: 0; padding-right: 0; }
-    .num-item:last-child { border-bottom: none; }
-  }
-
-  .num-big {
-    font-size: clamp(40px, 8vw, 64px);
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .num-big .accent { color: #74C69D; }
-
-  .num-desc {
-    font-size: 14px;
-    color: #999;
-    line-height: 1.6;
-    word-break: keep-all;
-  }
-
-  /* ══════════════════════════
-     03. 문제 정의
-  ══════════════════════════ */
-  .s-problem { background: #fff; border-bottom: 1px solid #eee; }
-
-  .sec-kicker {
+  /* ── 라벨 ── */
+  .label {
     font-size: 11px;
     font-weight: 700;
-    color: #2D6A4F;
-    letter-spacing: .15em;
+    letter-spacing: .18em;
     text-transform: uppercase;
     margin-bottom: 20px;
   }
 
-  .sec-h2 {
-    font-size: clamp(26px, 5vw, 42px);
+  /* ══════════════════════════════════
+     § 01  COVER
+  ══════════════════════════════════ */
+  #s1 {
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    min-height: 100vh;
+    justify-content: flex-end;
+    padding-bottom: 72px;
+  }
+
+  .cover-label { color: var(--g2); }
+
+  .cover-h {
+    font-size: clamp(38px, 6.5vw, 68px);
     font-weight: 900;
-    line-height: 1.25;
-    color: #111;
-    margin-bottom: 32px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 28px;
     word-break: keep-all;
   }
 
-  .sec-body {
-    font-size: 16px;
-    color: #444;
-    line-height: 1.9;
-    max-width: 560px;
+  .cover-h .hl { color: var(--g2); }
+
+  .cover-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--sub);
+    line-height: 1.8;
+    max-width: 520px;
     word-break: keep-all;
   }
 
-  .quote-block {
-    margin: 40px 0;
-    padding: 24px 28px;
-    border-left: 4px solid #2D6A4F;
-    background: #F0FFF4;
-    border-radius: 0 12px 12px 0;
+  /* ══════════════════════════════════
+     § 02  STATS
+  ══════════════════════════════════ */
+  #s2 {
+    background: var(--ink);
+    min-height: auto;
+    padding: 80px 60px;
   }
 
-  .quote-text {
-    font-size: 16px;
-    color: #1a1a1a;
+  .stats-label { color: var(--g4); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #2a2a2a;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+
+  .stat-item {
+    padding: 36px 32px 36px 0;
+    border-right: 1px solid #2a2a2a;
+  }
+
+  .stat-item:last-child { border-right: none; padding-left: 32px; padding-right: 0; }
+  .stat-item:nth-child(2) { padding-left: 32px; }
+
+  @media (max-width: 600px) {
+    .stat-item { padding: 28px 0; border-right: none; border-bottom: 1px solid #2a2a2a; }
+    .stat-item:last-child { border-bottom: none; }
+    .stat-item:nth-child(2) { padding-left: 0; }
+  }
+
+  .stat-n {
+    font-size: clamp(44px, 7vw, 72px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .stat-n .accent { color: var(--g4); }
+
+  .stat-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.7;
+  }
+
+  /* ══════════════════════════════════
+     § 03  PROBLEM — Before
+  ══════════════════════════════════ */
+  #s3 { background: #fff; border-bottom: 1px solid var(--line); }
+
+  .problem-label { color: #9CA3AF; }
+
+  .problem-h {
+    font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 40px;
+    word-break: keep-all;
+  }
+
+  /* 카톡 메시지 목업 */
+  .chat-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .chat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 560px) {
+    .chat-row { grid-template-columns: 1fr; }
+  }
+
+  .chat-box {
+    border-radius: 16px;
+    padding: 22px 24px;
+    position: relative;
+  }
+
+  .chat-box.bad {
+    background: #F3F4F6;
+    border: 1px solid #E5E7EB;
+  }
+
+  .chat-box.good {
+    background: var(--g5);
+    border: 1px solid #B7E4C7;
+  }
+
+  .chat-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .chat-tag.bad-tag { color: #9CA3AF; }
+  .chat-tag.good-tag { color: var(--g2); }
+
+  .chat-content {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--mid);
+    white-space: pre-line;
+  }
+
+  .chat-content.bad-c { color: #6B7280; }
+  .chat-content.good-c { color: var(--g1); font-weight: 500; }
+
+  .problem-quote {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 22px 26px;
+    border-left: 3px solid var(--line);
+  }
+
+  .problem-quote p {
+    font-size: 15px;
+    color: var(--mid);
     line-height: 1.8;
     word-break: keep-all;
     font-style: italic;
   }
 
-  .quote-source {
+  .problem-quote cite {
+    display: block;
     font-size: 12px;
-    color: #888;
+    color: var(--sub);
     margin-top: 10px;
+    font-style: normal;
   }
 
-  /* ══════════════════════════
-     04. 비교
-  ══════════════════════════ */
-  .s-compare { background: #FAFAFA; border-bottom: 1px solid #eee; }
+  /* ══════════════════════════════════
+     § 04  HOW — 3 steps
+  ══════════════════════════════════ */
+  #s4 { background: var(--bg); border-bottom: 1px solid var(--line); }
 
-  .compare-rows { margin-top: 36px; }
+  .how-label { color: var(--g2); }
 
-  .compare-row {
-    display: grid;
-    grid-template-columns: 160px 1fr 1fr;
+  .how-h {
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 48px;
+    word-break: keep-all;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
     gap: 0;
-    border-bottom: 1px solid #E5E7EB;
-    padding: 18px 0;
-    align-items: center;
   }
 
-  .compare-row.header {
-    padding-bottom: 12px;
-    border-bottom: 2px solid #111;
+  .step {
+    display: flex;
+    gap: 28px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: flex-start;
   }
 
-  @media (max-width: 600px) {
-    .compare-row { grid-template-columns: 100px 1fr 1fr; gap: 8px; }
-  }
+  .step:last-child { border-bottom: none; }
 
-  .cr-key {
+  .step-num {
     font-size: 13px;
-    font-weight: 700;
-    color: #555;
+    font-weight: 900;
+    color: var(--g2);
+    min-width: 28px;
+    padding-top: 3px;
+    letter-spacing: .05em;
   }
 
-  .compare-row.header .cr-key { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+  .step-body { flex: 1; }
 
-  .cr-them {
+  .step-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .step-desc {
     font-size: 14px;
-    color: #999;
-    line-height: 1.5;
+    color: var(--sub);
+    line-height: 1.7;
+    word-break: keep-all;
   }
 
-  .cr-us {
-    font-size: 14px;
+  .step-tag {
+    display: inline-block;
+    background: var(--g5);
+    color: var(--g2);
+    font-size: 11px;
     font-weight: 700;
-    color: #2D6A4F;
-    line-height: 1.5;
+    border-radius: 20px;
+    padding: 3px 10px;
+    margin-top: 8px;
   }
 
-  .compare-row.header .cr-them { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #aaa; font-weight: 700; }
-  .compare-row.header .cr-us   { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #2D6A4F; font-weight: 700; }
-
-  /* ══════════════════════════
-     05. 데모
-  ══════════════════════════ */
-  .s-demo { background: #2D6A4F; color: #fff; max-width: 100%; }
-  .s-demo-inner { max-width: 800px; margin: 0 auto; padding: 80px 48px; }
-
-  .demo-kicker {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .15em;
-    color: #74C69D;
-    margin-bottom: 24px;
+  /* ══════════════════════════════════
+     § 05  DEMO
+  ══════════════════════════════════ */
+  #s5 {
+    background: var(--g2);
+    min-height: auto;
+    padding: 80px 60px;
   }
 
-  .demo-h2 {
-    font-size: clamp(28px, 5vw, 44px);
+  .demo-label { color: var(--g4); }
+
+  .demo-h {
+    font-size: clamp(28px, 4.5vw, 50px);
     font-weight: 900;
     color: #fff;
-    line-height: 1.25;
-    margin-bottom: 16px;
+    line-height: 1.2;
+    margin-bottom: 12px;
     word-break: keep-all;
   }
 
   .demo-sub {
     font-size: 16px;
-    color: rgba(255,255,255,.7);
-    margin-bottom: 48px;
+    color: rgba(255,255,255,.65);
+    margin-bottom: 44px;
     line-height: 1.7;
     word-break: keep-all;
   }
 
   .demo-card {
     background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.2);
+    border: 1.5px solid rgba(255,255,255,.2);
     border-radius: 20px;
-    padding: 32px 36px;
+    padding: 28px 32px;
     display: flex;
-    align-items: center;
     gap: 28px;
+    align-items: center;
   }
 
-  @media (max-width: 600px) {
-    .demo-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+  @media (max-width: 560px) {
+    .demo-card { flex-direction: column; align-items: flex-start; }
   }
 
-  .demo-qr-placeholder {
-    width: 88px;
-    height: 88px;
-    background: rgba(255,255,255,.15);
+  .demo-qr {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,.12);
+    border: 1.5px dashed rgba(255,255,255,.3);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
-    color: rgba(255,255,255,.6);
+    color: rgba(255,255,255,.5);
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.5;
     flex-shrink: 0;
-    border: 1px dashed rgba(255,255,255,.3);
   }
 
-  .demo-card-body { flex: 1; }
+  .demo-info { flex: 1; }
 
-  .demo-card-label {
-    font-size: 11px;
+  .demo-info-label {
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: .1em;
-    color: rgba(255,255,255,.6);
+    letter-spacing: .12em;
+    color: var(--g4);
     margin-bottom: 8px;
   }
 
-  .demo-card-title {
-    font-size: 20px;
+  .demo-info-title {
+    font-size: 18px;
     font-weight: 800;
     color: #fff;
     margin-bottom: 8px;
   }
 
-  .demo-card-url {
-    font-size: 12px;
-    color: rgba(255,255,255,.6);
+  .demo-info-url {
+    font-size: 11px;
+    color: rgba(255,255,255,.55);
     word-break: break-all;
     line-height: 1.5;
   }
 
-  /* ══════════════════════════
-     06. 수익 모델
-  ══════════════════════════ */
-  .s-revenue { background: #fff; border-bottom: 1px solid #eee; }
+  /* ══════════════════════════════════
+     § 06  GAIN — What they get
+  ══════════════════════════════════ */
+  #s6 { background: #fff; border-bottom: 1px solid var(--line); }
 
-  .revenue-grid {
+  .gain-label { color: var(--g2); }
+
+  .gain-h {
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 48px;
+    word-break: keep-all;
+  }
+
+  .gain-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-    margin-top: 36px;
   }
 
-  @media (max-width: 600px) { .revenue-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .gain-grid { grid-template-columns: 1fr; }
+  }
 
-  .rev-card {
-    border: 1px solid #E5E7EB;
+  .gain-card {
+    border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 28px;
+    padding: 28px 24px;
   }
 
-  .rev-card.hl {
-    border-color: #2D6A4F;
-    background: #F0FFF4;
+  .gain-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
   }
 
-  .rev-tag {
+  .gain-who {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: .08em;
-    color: #888;
-    margin-bottom: 12px;
+    letter-spacing: .1em;
+    color: var(--sub);
+    margin-bottom: 8px;
   }
 
-  .rev-card.hl .rev-tag { color: #2D6A4F; }
-
-  .rev-num {
-    font-size: clamp(28px, 5vw, 40px);
-    font-weight: 900;
-    color: #111;
-    line-height: 1;
-    margin-bottom: 6px;
+  .gain-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.35;
+    word-break: keep-all;
   }
 
-  .rev-card.hl .rev-num { color: #2D6A4F; }
-
-  .rev-sub {
+  .gain-body {
     font-size: 13px;
-    color: #888;
-    line-height: 1.6;
-    margin-top: 8px;
-  }
-
-  .price-note {
-    margin-top: 28px;
-    padding: 20px 24px;
-    background: #F9FAFB;
-    border-radius: 12px;
-    font-size: 14px;
-    color: #555;
+    color: var(--sub);
     line-height: 1.7;
     word-break: keep-all;
   }
 
-  .price-note strong { color: #111; }
+  /* ══════════════════════════════════
+     § 07  PILOT
+  ══════════════════════════════════ */
+  #s7 { background: var(--bg); border-bottom: 1px solid var(--line); }
 
-  /* ══════════════════════════
-     07. 마무리
-  ══════════════════════════ */
-  .s-close { background: #111; color: #fff; max-width: 100%; min-height: auto; padding: 80px 48px; }
-  .s-close-inner { max-width: 800px; margin: 0 auto; }
+  .pilot-label { color: var(--g2); }
 
-  .close-h2 {
-    font-size: clamp(24px, 4vw, 36px);
+  .pilot-h {
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    word-break: keep-all;
+  }
+
+  .pilot-sub {
+    font-size: 16px;
+    color: var(--sub);
+    line-height: 1.7;
+    margin-bottom: 44px;
+    word-break: keep-all;
+  }
+
+  .pilot-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 560px) {
+    .pilot-cards { grid-template-columns: 1fr; }
+  }
+
+  .pilot-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 22px;
+  }
+
+  .pilot-card.hl {
+    background: var(--g1);
+    border-color: var(--g1);
+  }
+
+  .pilot-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--sub);
+    margin-bottom: 10px;
+  }
+
+  .pilot-card.hl .pilot-card-label { color: var(--g4); }
+
+  .pilot-card-big {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .pilot-card.hl .pilot-card-big { color: #fff; }
+
+  .pilot-card-desc {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  .pilot-card.hl .pilot-card-desc { color: rgba(255,255,255,.6); }
+
+  .pilot-note {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.8;
+    word-break: keep-all;
+  }
+
+  /* ══════════════════════════════════
+     § 08  CTA
+  ══════════════════════════════════ */
+  #s8 {
+    background: var(--ink);
+    min-height: auto;
+    padding: 80px 60px;
+  }
+
+  .cta-h {
+    font-size: clamp(28px, 4.5vw, 52px);
     font-weight: 900;
     color: #fff;
-    line-height: 1.35;
-    margin-bottom: 24px;
+    line-height: 1.2;
+    margin-bottom: 20px;
     word-break: keep-all;
   }
 
-  .close-body {
-    font-size: 15px;
-    color: #999;
-    line-height: 1.9;
+  .cta-h .hl { color: var(--g4); }
+
+  .cta-sub {
+    font-size: 16px;
+    color: #6B7280;
+    line-height: 1.8;
+    margin-bottom: 48px;
     max-width: 520px;
     word-break: keep-all;
-    margin-bottom: 40px;
   }
 
-  .close-meta {
+  .cta-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 48px;
+  }
+
+  .cta-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid #1f1f1f;
+  }
+
+  .cta-step:last-child { border-bottom: none; }
+
+  .cta-step-n {
     font-size: 12px;
-    color: #555;
-    border-top: 1px solid #333;
-    padding-top: 24px;
+    font-weight: 900;
+    color: var(--g4);
+    min-width: 24px;
+    padding-top: 2px;
+    letter-spacing: .05em;
+  }
+
+  .cta-step-t {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .cta-step-d {
+    font-size: 13px;
+    color: #6B7280;
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  .cta-footer {
+    border-top: 1px solid #1f1f1f;
+    padding-top: 28px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #4B5563;
   }
+
+  .cta-brand { color: var(--g4); font-weight: 700; font-size: 14px; }
+
 </style>
 </head>
 <body>
 
-<!-- 01. 커버 -->
-<div style="max-width:100%;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:72px 48px 80px;border-bottom:1px solid #eee;">
-  <div style="max-width:800px;margin:0 auto;width:100%;">
-    <div class="cover-kicker">책나무 독서논술 · 학부모 리포트 시스템 제안</div>
-    <h1 class="cover-h1">
+<!-- ①  COVER -->
+<div id="s1" class="sec">
+  <div class="inner">
+    <div class="label cover-label">책나무 독서논술 · 제안서</div>
+    <h1 class="cover-h">
       17년을 쌓았는데<br>
-      학부모는 <span class="green">모릅니다.</span>
+      학부모는 <span class="hl">아직도 모릅니다.</span>
     </h1>
-    <p class="cover-body">
+    <p class="cover-sub">
       책나무의 1:1 코칭은 리드인보다 깊습니다.<br>
-      그런데 학부모 폰에 아무것도 오지 않습니다.
+      그런데 학부모 폰에는 아무것도 오지 않습니다.<br>
+      보이지 않는 것은 없는 것과 같습니다.
     </p>
   </div>
 </div>
 
-<!-- 02. 숫자 -->
-<div class="s-numbers">
-  <div class="s-numbers-inner">
-    <div class="num-label">책나무 현황</div>
-    <div class="num-grid">
-      <div class="num-item">
-        <div class="num-big"><span class="accent">17</span>년</div>
-        <div class="num-desc">폐업률 0%<br>포브스 2년 연속 수상</div>
+<!-- ②  STATS -->
+<div id="s2" class="sec">
+  <div class="inner">
+    <div class="label stats-label">책나무 오늘의 현실</div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-n"><span class="accent">17</span>년</div>
+        <div class="stat-desc">폐업률 0%<br>포브스 2년 연속<br>국내 최고 독서교육 브랜드</div>
       </div>
-      <div class="num-item">
-        <div class="num-big"><span class="accent">600</span>개</div>
-        <div class="num-desc">전국 가맹점<br>지금도 늘어나는 중</div>
+      <div class="stat-item">
+        <div class="stat-n"><span class="accent">600</span>개</div>
+        <div class="stat-desc">전국 가맹점<br>지금 이 순간에도<br>가맹 문의가 들어오는 중</div>
       </div>
-      <div class="num-item">
-        <div class="num-big"><span class="accent">0</span>개</div>
-        <div class="num-desc">학부모에게 자동으로<br>나가는 리포트</div>
+      <div class="stat-item">
+        <div class="stat-n"><span class="accent">0</span>건</div>
+        <div class="stat-desc">학부모에게<br>자동으로 발송되는<br>월간 성장 리포트</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 03. 문제 -->
-<div style="max-width:100%;border-bottom:1px solid #eee;">
-  <section class="s-problem" style="min-height:auto;padding:80px 48px;">
-    <div class="sec-kicker">문제</div>
-    <h2 class="sec-h2">보이지 않으면<br>없는 것과 같습니다.</h2>
-    <p class="sec-body">
-      리드인이 성장한 이유는 독서교육이 더 뛰어나서가 아닙니다.
-      수업이 끝나면 그날 바로 카톡이 오기 때문입니다.
-      숫자 몇 개가 전부인 메시지지만, 학부모는 그것을 신뢰의 증거로 받아들입니다.
-    </p>
-    <div class="quote-block">
-      <p class="quote-text">"리드인은 수업 끝나면 바로 카톡이 와요. 점수가 보이니까 뭔가 하고 있구나 싶죠. 책나무는 아이가 집에 와서 얘기해줄 때까지 기다려야 해요."</p>
-      <div class="quote-source">— 두 학원을 비교한 학부모 후기</div>
-    </div>
-    <p class="sec-body">
-      책나무는 더 좋은 교육을 하면서도, 그것이 학부모에게 전달되지 않고 있습니다.
-      17년의 노하우가 수업실 안에 머물고 있습니다.
-    </p>
-  </section>
-</div>
+<!-- ③  PROBLEM  ——  Before / After -->
+<div id="s3" class="sec">
+  <div class="inner">
+    <div class="label problem-label">지금과 앞으로</div>
+    <h2 class="problem-h">
+      학부모가 지금 받는 것과<br>받아야 하는 것
+    </h2>
 
-<!-- 04. 비교 -->
-<div style="max-width:100%;background:#FAFAFA;border-bottom:1px solid #eee;">
-  <section style="min-height:auto;padding:80px 48px;">
-    <div class="sec-kicker">현황 비교</div>
-    <h2 class="sec-h2">리드인이 보내는 것,<br>우리가 보낼 것</h2>
-    <div class="compare-rows">
-      <div class="compare-row header">
-        <div class="cr-key"></div>
-        <div class="cr-them">리드인 (현재)</div>
-        <div class="cr-us">책나무 + 이 시스템</div>
+    <div class="chat-row">
+      <!-- BEFORE -->
+      <div class="chat-box bad">
+        <div class="chat-tag bad-tag">리드인 학부모가 받는 것</div>
+        <div class="chat-content bad-c">📩 카카오톡 메시지
+
+[오늘 수업 결과]
+어휘 78 / 사실 92
+추론 74 / 비판 68
+이해도 84%
+
+감사합니다.</div>
       </div>
-      <div class="compare-row">
-        <div class="cr-key">수업 결과</div>
-        <div class="cr-them">카톡 텍스트<br>숫자만 나열</div>
-        <div class="cr-us">시각화 리포트 링크<br>게이지·차트·그래프</div>
-      </div>
-      <div class="compare-row">
-        <div class="cr-key">성장 추이</div>
-        <div class="cr-them">없음</div>
-        <div class="cr-us">3개월 성장 그래프<br>"이만큼 컸어요"</div>
-      </div>
-      <div class="compare-row">
-        <div class="cr-key">선생님 코멘트</div>
-        <div class="cr-them">없음</div>
-        <div class="cr-us">담당 강사 개인 코멘트<br>AI + 강사 이중 작성</div>
-      </div>
-      <div class="compare-row">
-        <div class="cr-key">도서 추천</div>
-        <div class="cr-them">레벨 배정</div>
-        <div class="cr-us">취약 영역 기반 추천<br>이유까지 명시</div>
-      </div>
-      <div class="compare-row">
-        <div class="cr-key">강사 부담</div>
-        <div class="cr-them">수동 처리</div>
-        <div class="cr-us">점수 입력 → 자동 발송<br>추가 업무 없음</div>
+
+      <!-- AFTER -->
+      <div class="chat-box good">
+        <div class="chat-tag good-tag">책나무 학부모가 받게 되는 것</div>
+        <div class="chat-content good-c">📩 카카오톡 메시지
+
+[4월 독서 성장 리포트]
+김지율 (미사초 4학년)
+
+→ 리포트 보기 ↗
+    이해도 84% · 우수
+    3개월 연속 성장 중
+    박선생님 코멘트 포함</div>
       </div>
     </div>
-  </section>
+
+    <div style="margin-top: 28px;">
+      <div class="problem-quote">
+        <p>"리드인은 수업 끝나면 그날 바로 카톡이 와요. 우리 아이 점수가 바로 보이니까 뭔가 하고 있구나 싶어요. 책나무는 아이가 집에 와서 얘기해줄 때까지 기다려야 해요."</p>
+        <cite>— 두 학원을 비교한 학부모 온라인 후기</cite>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- 05. 데모 -->
-<div class="s-demo">
-  <div class="s-demo-inner">
-    <div class="demo-kicker">실제 샘플</div>
-    <h2 class="demo-h2">직접 보시면<br>알 수 있습니다.</h2>
+<!-- ④  HOW -->
+<div id="s4" class="sec">
+  <div class="inner">
+    <div class="label how-label">작동 방식</div>
+    <h2 class="how-h">
+      선생님은 점수만 입력합니다.<br>
+      나머지는 자동입니다.
+    </h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">선생님 — 점수 입력 (5분)</div>
+          <div class="step-desc">BToS에서 나온 4영역 점수를 구글 시트에 옮깁니다. 앱 설치 없음, 별도 로그인 없음. 기존 방식 그대로입니다.</div>
+          <span class="step-tag">강사 추가 부담 없음</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">시스템 — 리포트 자동 생성</div>
+          <div class="step-desc">AI가 성장 포인트·개선 방향·도서 추천을 작성합니다. 3개월 성장 그래프, 반 평균 비교가 자동 계산됩니다.</div>
+          <span class="step-tag">사람이 할 일 없음</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">학부모 — 카카오톡으로 수신</div>
+          <div class="step-desc">링크 하나를 탭하면 아이의 이달 성장 전체가 펼쳐집니다. 저장하고, 가족과 공유하고, 다음 달 것과 비교합니다.</div>
+          <span class="step-tag">학부모 앱 설치 불필요</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤  DEMO -->
+<div id="s5" class="sec" style="min-height:auto; padding: 80px 60px;">
+  <div class="inner">
+    <div class="label demo-label">실제 샘플</div>
+    <h2 class="demo-h">말보다 직접<br>보시는 게 빠릅니다.</h2>
     <p class="demo-sub">
       지금 이 자리에서 확인하실 수 있습니다.<br>
-      아래 링크가 학부모 카톡으로 매달 자동 발송됩니다.
+      학부모 카톡으로 매달 자동 발송되는 실제 화면입니다.
     </p>
     <div class="demo-card">
-      <div class="demo-qr-placeholder">QR<br>스캔</div>
-      <div class="demo-card-body">
-        <div class="demo-card-label">책나무 학부모 리포트 샘플</div>
-        <div class="demo-card-title">지금 폰으로 열어보세요</div>
-        <div class="demo-card-url">https://daniel-donggil-lee.github.io/remark-report-engine/demo/chaknamu-sample.html</div>
+      <div class="demo-qr">QR<br>스캔</div>
+      <div class="demo-info">
+        <div class="demo-info-label">책나무 학부모 리포트 · 실제 샘플</div>
+        <div class="demo-info-title">지금 폰으로 열어보세요</div>
+        <div class="demo-info-url">https://daniel-donggil-lee.github.io/remark-report-engine/demo/chaknamu-sample.html</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 06. 가맹점이 얻는 것 -->
-<div style="max-width:100%;border-bottom:1px solid #eee;">
-  <section style="min-height:auto;padding:80px 48px;">
-    <div class="sec-kicker">가맹점주가 얻는 것</div>
-    <h2 class="sec-h2">학부모가 보이면<br>학원이 바뀝니다.</h2>
-    <p class="sec-body">
-      매달 리포트를 받는 학부모는 다릅니다.
-      아이의 성장이 눈에 보이는 학원을 쉽게 떠나지 않습니다.
-    </p>
-    <div class="revenue-grid">
-      <div class="rev-card">
-        <div class="rev-tag">재등록률 효과</div>
-        <div class="rev-num" style="font-size:clamp(20px,4vw,32px);line-height:1.3;">학생 1명<br>3개월 유지</div>
-        <div class="rev-sub">수강료 51만원 추가 매출<br>시스템 비용 한 달치로 충당</div>
+<!-- ⑥  GAIN -->
+<div id="s6" class="sec">
+  <div class="inner">
+    <div class="label gain-label">도입 효과</div>
+    <h2 class="gain-h">
+      세 곳이 달라집니다.
+    </h2>
+    <div class="gain-grid">
+      <div class="gain-card">
+        <div class="gain-icon">👩‍👧</div>
+        <div class="gain-who">학부모</div>
+        <div class="gain-title">아이의 성장이<br>매달 손 안에</div>
+        <div class="gain-body">막연한 믿음이 아니라 데이터로 보입니다. 상담 전화를 걸기 전에 이미 알고 있습니다.</div>
       </div>
-      <div class="rev-card hl">
-        <div class="rev-tag">학부모 신뢰 자산</div>
-        <div class="rev-num" style="font-size:clamp(20px,4vw,32px);line-height:1.3;">매달 리포트<br>= 상담 절반</div>
-        <div class="rev-sub">학부모가 먼저 묻기 전에<br>모든 정보가 전달됩니다</div>
+      <div class="gain-card">
+        <div class="gain-icon">🏫</div>
+        <div class="gain-who">가맹점주</div>
+        <div class="gain-title">묻지 않아도<br>다시 등록합니다</div>
+        <div class="gain-body">성장이 보이는 학원은 떠나지 않습니다. 재등록률이 오르면 모집 비용도 줄어듭니다.</div>
       </div>
-    </div>
-
-    <div style="margin-top:20px;border:1px solid #E5E7EB;border-radius:16px;padding:28px;">
-      <div class="rev-tag" style="margin-bottom:16px;">책나무 본사가 얻는 것</div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div style="display:flex;gap:14px;align-items:flex-start;">
-          <div style="width:6px;height:6px;border-radius:50%;background:#2D6A4F;margin-top:7px;flex-shrink:0;"></div>
-          <div style="font-size:14px;color:#374151;line-height:1.7;word-break:keep-all;"><strong>리드인과의 격차 해소</strong> — "책나무는 리포트가 없다"는 이탈 이유가 사라집니다</div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;">
-          <div style="width:6px;height:6px;border-radius:50%;background:#2D6A4F;margin-top:7px;flex-shrink:0;"></div>
-          <div style="font-size:14px;color:#374151;line-height:1.7;word-break:keep-all;"><strong>600개 가맹점 품질 표준화</strong> — 어느 지점이든 동일한 수준의 학부모 경험</div>
-        </div>
-        <div style="display:flex;gap:14px;align-items:flex-start;">
-          <div style="width:6px;height:6px;border-radius:50%;background:#2D6A4F;margin-top:7px;flex-shrink:0;"></div>
-          <div style="font-size:14px;color:#374151;line-height:1.7;word-break:keep-all;"><strong>본사는 아무것도 하지 않아도 됩니다</strong> — 셋업·운영·발송 전부 저희가 처리합니다</div>
-        </div>
+      <div class="gain-card">
+        <div class="gain-icon">🌳</div>
+        <div class="gain-who">책나무 본사</div>
+        <div class="gain-title">600개 가맹점이<br>같은 수준으로</div>
+        <div class="gain-body">어느 지점이든 동일한 학부모 경험. 리드인과의 기술 격차가 사라집니다.</div>
       </div>
     </div>
-
-    <div class="price-note">
-      <strong>시작 방식:</strong> 파일럿 10~30개 가맹점 <strong>3개월 무료</strong> →
-      학부모 반응을 직접 확인하신 후 도입 규모를 결정하시면 됩니다.
-    </div>
-  </section>
+  </div>
 </div>
 
-<!-- 07. 마무리 -->
-<div class="s-close">
-  <div class="s-close-inner">
-    <h2 class="close-h2">17년의 코칭이<br>이제 학부모 폰에 닿습니다.</h2>
-    <p class="close-body">
-      파일럿에 참여할 가맹점 10~30곳을 선정해 주시면,
-      셋업부터 첫 발송까지 저희가 전부 진행합니다.
-      학부모 반응을 직접 보신 후 도입 규모를 결정하시면 됩니다.
+<!-- ⑦  PILOT -->
+<div id="s7" class="sec">
+  <div class="inner">
+    <div class="label pilot-label">시작 방법</div>
+    <h2 class="pilot-h">
+      리스크 없이 시작합니다.
+    </h2>
+    <p class="pilot-sub">
+      결정하기 전에 직접 확인하세요.<br>
+      파일럿 가맹점 학부모의 반응이 모든 것을 말해줄 것입니다.
     </p>
-    <div class="close-meta">
-      <span style="color:#74C69D;font-weight:700;">생각의숲</span>
+
+    <div class="pilot-cards">
+      <div class="pilot-card hl">
+        <div class="pilot-card-label">파일럿 기간</div>
+        <div class="pilot-card-big">3개월</div>
+        <div class="pilot-card-desc">비용 없음. 셋업·운영·발송 전부 저희가 진행합니다.</div>
+      </div>
+      <div class="pilot-card">
+        <div class="pilot-card-label">파일럿 가맹점</div>
+        <div class="pilot-card-big">10~30개</div>
+        <div class="pilot-card-desc">본사에서 선정. 다양한 규모와 지역을 섞어서 진행합니다.</div>
+      </div>
+      <div class="pilot-card">
+        <div class="pilot-card-label">측정 기준</div>
+        <div class="pilot-card-big">3가지</div>
+        <div class="pilot-card-desc">학부모 리포트 확인율 · 가맹점주 만족도 · 재등록률 변화</div>
+      </div>
+      <div class="pilot-card">
+        <div class="pilot-card-label">파일럿 후</div>
+        <div class="pilot-card-big">선택</div>
+        <div class="pilot-card-desc">결과가 마음에 들지 않으면 계약은 없습니다. 데이터도 전부 삭제합니다.</div>
+      </div>
+    </div>
+
+    <div class="pilot-note">
+      <strong>본계약 조건:</strong> 파일럿 종료 후 1주일 이내 결정. 학생당 월 5,000원.
+      100명 가맹점 기준 월 50만원 — 학생 한 명이 한 달만 더 다녀도 본전입니다.
+    </div>
+  </div>
+</div>
+
+<!-- ⑧  CTA -->
+<div id="s8" class="sec" style="min-height: auto; padding: 80px 60px;">
+  <div class="inner">
+    <h2 class="cta-h">
+      지금 <span class="hl">한 가지만</span><br>결정하시면 됩니다.
+    </h2>
+    <p class="cta-sub">
+      파일럿에 참여할 가맹점 몇 곳을 알려주시면<br>
+      저희가 다음 달부터 바로 시작합니다.
+    </p>
+
+    <div class="cta-steps">
+      <div class="cta-step">
+        <div class="cta-step-n">01</div>
+        <div>
+          <div class="cta-step-t">파일럿 가맹점 선정</div>
+          <div class="cta-step-d">10~30개 가맹점을 알려주시면 됩니다. 선정 기준은 없습니다.</div>
+        </div>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-n">02</div>
+        <div>
+          <div class="cta-step-t">셋업 (2주)</div>
+          <div class="cta-step-d">가맹점 강사에게 5분짜리 입력 방법만 안내하면 준비 끝입니다.</div>
+        </div>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-n">03</div>
+        <div>
+          <div class="cta-step-t">첫 발송</div>
+          <div class="cta-step-d">학부모 카톡으로 리포트가 나가는 날, 바로 반응이 옵니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-footer">
+      <span class="cta-brand">생각의숲</span>
       <span>2026 · 비공개 제안</span>
     </div>
   </div>
