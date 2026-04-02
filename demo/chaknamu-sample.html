@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김지율 — 4월 독서 성장 리포트 | 책나무독서논술</title>
+<style>
+  :root {
+    --primary:  #2D6A4F;
+    --mid:      #40916C;
+    --light:    #74C69D;
+    --pale:     #D8F3DC;
+    --accent:   #F77F00;
+    --coral:    #E63946;
+    --gray:     #6b7280;
+    --bg:       #f5f9f6;
+    --card:     #ffffff;
+    --radius:   16px;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* ── 데모 배너 ── */
+  .demo-banner {
+    background: #fff8e1;
+    text-align: center;
+    font-size: 11px;
+    color: #7c6200;
+    padding: 6px;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #2D6A4F 0%, #40916C 60%, #52B788 100%);
+    padding: 26px 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "🌳";
+    position: absolute;
+    right: 18px;
+    top: 16px;
+    font-size: 52px;
+    opacity: .15;
+  }
+  .header-academy {
+    font-size: 11px;
+    color: rgba(255,255,255,.85);
+    letter-spacing: .1em;
+    font-weight: 700;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+  }
+  .header-brand-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: rgba(255,255,255,.95);
+    letter-spacing: .04em;
+  }
+  .header-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: white;
+    margin-top: 2px;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,.8);
+    margin-top: 3px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.22);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-top: 12px;
+    letter-spacing: .05em;
+    border: 1px solid rgba(255,255,255,.3);
+  }
+
+  /* ── 본문 ── */
+  .body { padding: 14px; max-width: 480px; margin: 0 auto; }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.06);
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ── 이달의 책 ── */
+  .book-card {
+    background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .book-icon { font-size: 36px; }
+  .book-info { flex: 1; }
+  .book-sub  { font-size: 11px; color: rgba(255,255,255,.7); margin-bottom: 3px; }
+  .book-title { font-size: 16px; font-weight: 800; color: white; line-height: 1.3; }
+  .book-meta  { font-size: 11px; color: rgba(255,255,255,.65); margin-top: 4px; }
+  .book-level {
+    display: inline-block;
+    background: rgba(255,255,255,.22);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 2px 8px;
+    margin-top: 6px;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+
+  /* ── 게이지 ── */
+  .gauge-wrap { text-align: center; }
+  .gauge-badge {
+    display: inline-block;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 4px 16px;
+    margin-top: 4px;
+  }
+
+  /* ── 4영역 차트 ── */
+  .area-chart { display: flex; flex-direction: column; gap: 10px; }
+  .area-row   { display: flex; align-items: center; gap: 10px; }
+  .area-label { font-size: 12px; color: var(--gray); width: 80px; flex-shrink: 0; }
+  .area-bar-wrap { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .area-bar-bg   { flex: 1; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
+  .area-bar-fill { height: 100%; border-radius: 4px; }
+  .area-val      { font-size: 12px; font-weight: 700; width: 32px; text-align: right; flex-shrink: 0; }
+
+  /* ── 반평균 비교 ── */
+  .avg-chart { display: flex; flex-direction: column; gap: 8px; }
+  .avg-row   { display: flex; align-items: center; gap: 10px; }
+  .avg-label { font-size: 12px; color: var(--gray); width: 50px; flex-shrink: 0; }
+  .avg-bar-wrap { flex: 1; display: flex; align-items: center; gap: 8px; }
+  .avg-bar   { height: 8px; border-radius: 4px; }
+  .avg-val   { font-size: 12px; font-weight: 700; flex-shrink: 0; }
+
+  /* ── 독서습관 지수 (리드인에 없는 차별 항목) ── */
+  .habit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 2px;
+  }
+  .habit-item {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .habit-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .habit-unit {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+  .habit-label {
+    font-size: 11px;
+    color: #374151;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  /* ── 독서노트 ── */
+  .notes-row { display: flex; align-items: center; gap: 12px; }
+  .notes-count { font-size: 32px; font-weight: 800; color: var(--primary); }
+  .notes-label { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  .notes-badge {
+    margin-left: auto;
+    background: var(--pale);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 5px 14px;
+  }
+
+  /* ── 인사이트 카드 ── */
+  .insight-card { margin-bottom: 10px; }
+  .insight-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .insight-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .insight-label { font-size: 12px; font-weight: 700; color: #374151; }
+  .insight-body {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #374151;
+  }
+
+  /* ── 강사 코멘트 ── */
+  .teacher-box {
+    background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    border-left: 4px solid var(--primary);
+    margin-bottom: 10px;
+  }
+  .teacher-name { font-size: 11px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+  .teacher-text { font-size: 13px; line-height: 1.8; color: #374151; }
+
+  /* ── 추천 도서 ── */
+  .next-book {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent);
+  }
+  .next-label { font-size: 11px; font-weight: 700; color: #7c4700; margin-bottom: 6px; }
+  .next-title { font-size: 16px; font-weight: 800; color: #4a2800; }
+  .next-level {
+    display: inline-block;
+    background: rgba(247,127,0,.15);
+    color: #7c4700;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 2px 8px;
+    margin: 4px 0;
+  }
+  .next-reason { font-size: 12px; color: #5a3a00; margin-top: 4px; line-height: 1.5; }
+
+  /* ── 분리선 비교표 ── */
+  .vs-box {
+    background: linear-gradient(135deg, #f0fff4, #e8f5e9);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--pale);
+  }
+  .vs-title { font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 10px; letter-spacing: .05em; }
+  .vs-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #e8f5e9; }
+  .vs-row:last-child { border-bottom: none; }
+  .vs-key { font-size: 12px; color: #374151; }
+  .vs-val { font-size: 12px; font-weight: 700; color: var(--primary); }
+
+  /* ── CTA ── */
+  .cta-wrap { text-align: center; padding: 10px 0 28px; }
+  .btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #2D6A4F 0%, #52B788 100%);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50px;
+    padding: 14px 36px;
+    text-decoration: none;
+    letter-spacing: .02em;
+    box-shadow: 0 4px 14px rgba(45,106,79,.35);
+  }
+
+  /* ── 푸터 ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    padding: 8px 16px 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">📋 책나무독서논술 맞춤 샘플 — 실제 도입 시 학원명·색상·로고 적용</div>
+
+<div class="header">
+  <div class="header-academy">하남 책나무독서논술</div>
+  <div class="header-name">김지율</div>
+  <div class="header-sub">미사초 4학년 · 담당 박선생님</div>
+  <div class="header-badge">4월 독서 성장 리포트</div>
+</div>
+
+<div class="body">
+
+  <!-- 이달의 책 -->
+  <div class="book-card">
+    <div class="book-icon">📖</div>
+    <div class="book-info">
+      <div class="book-sub">이번 달 함께 읽은 책</div>
+      <div class="book-title">《내 이름은 삐삐 롱스타킹》</div>
+      <div class="book-meta">아스트리드 린드그렌</div>
+      <div class="book-level">레벨 3-B</div>
+    </div>
+  </div>
+
+  <!-- 독서 이해도 게이지 -->
+  <div class="card" style="text-align:center;">
+    <div class="card-title">독서 이해도</div>
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 140 140" width="140" height="140">
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#f0f0f0" stroke-width="12"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#ffe0e0" stroke-width="2"
+          stroke-dasharray="237.5 101.8"
+          stroke-dashoffset="84.8"
+          transform="rotate(-90 70 70)"/>
+        <circle cx="70" cy="70" r="54" fill="none" stroke="#2D6A4F" stroke-width="12"
+          stroke-linecap="round"
+          stroke-dasharray="285.0 54.3"
+          stroke-dashoffset="84.8"
+          transform="rotate(-90 70 70)"/>
+        <text x="70" y="64" text-anchor="middle" font-size="26" font-weight="800" fill="#2D6A4F">84%</text>
+        <text x="70" y="82" text-anchor="middle" font-size="11" fill="#9ca3af">독서이해도</text>
+        <text x="70" y="96" text-anchor="middle" font-size="10" fill="#c0c0c0">통과 기준 70%</text>
+      </svg>
+      <div class="gauge-badge" style="background:#2D6A4F;">우수</div>
+    </div>
+  </div>
+
+  <!-- 4영역 분석 -->
+  <div class="card">
+    <div class="card-title">4영역 분석 · 어휘 / 사실 / 추론 / 비판</div>
+    <div class="area-chart">
+      <div class="area-row">
+        <div class="area-label">어휘</div>
+        <div class="area-bar-wrap">
+          <div class="area-bar-bg">
+            <div class="area-bar-fill" style="width:125px;background:#2D6A4F;"></div>
+          </div>
+          <span class="area-val" style="color:#2D6A4F;">78</span>
+        </div>
+      </div>
+      <div class="area-row">
+        <div class="area-label">사실</div>
+        <div class="area-bar-wrap">
+          <div class="area-bar-bg">
+            <div class="area-bar-fill" style="width:147px;background:#40916C;"></div>
+          </div>
+          <span class="area-val" style="color:#40916C;">92</span>
+        </div>
+      </div>
+      <div class="area-row">
+        <div class="area-label">추론</div>
+        <div class="area-bar-wrap">
+          <div class="area-bar-bg">
+            <div class="area-bar-fill" style="width:118px;background:#74C69D;"></div>
+          </div>
+          <span class="area-val" style="color:#52B788;">74</span>
+        </div>
+      </div>
+      <div class="area-row">
+        <div class="area-label" style="font-weight:700;">비판 (취약)</div>
+        <div class="area-bar-wrap">
+          <div class="area-bar-bg">
+            <div class="area-bar-fill" style="width:109px;background:#E63946;"></div>
+          </div>
+          <span class="area-val" style="color:#E63946;font-weight:700;">68</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3개월 성장 추이 + 반 평균 비교 -->
+  <div class="card">
+    <div class="card-title">3개월 성장 추이</div>
+    <svg viewBox="0 0 220 80" width="100%" style="max-width:220px;display:block;">
+      <line x1="28" y1="24.4" x2="192" y2="24.4" stroke="#d8f3dc" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="24" y="28.4" text-anchor="end" font-size="9" fill="#b0bcb4">80</text>
+      <polyline points="28.0,29.1 110.0,24.9 192.0,22.3" fill="none" stroke="#2D6A4F" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <polygon points="28.0,29.1 110.0,24.9 192.0,22.3 192.0,66 28.0,66" fill="#2D6A4F" opacity="0.08"/>
+      <circle cx="28.0" cy="29.1" r="5" fill="#40916C" stroke="white" stroke-width="2"/>
+      <text x="28.0" y="19.1" text-anchor="middle" font-size="11" font-weight="700" fill="#2D6A4F">71</text>
+      <circle cx="110.0" cy="24.9" r="5" fill="#40916C" stroke="white" stroke-width="2"/>
+      <text x="110.0" y="14.9" text-anchor="middle" font-size="11" font-weight="700" fill="#2D6A4F">79</text>
+      <circle cx="192.0" cy="22.3" r="5" fill="#40916C" stroke="white" stroke-width="2"/>
+      <text x="192.0" y="12.3" text-anchor="middle" font-size="11" font-weight="700" fill="#2D6A4F">84</text>
+      <text x="28.0" y="78" text-anchor="middle" font-size="10" fill="#8a9b90">2월</text>
+      <text x="110.0" y="78" text-anchor="middle" font-size="10" fill="#8a9b90">3월</text>
+      <text x="192.0" y="78" text-anchor="middle" font-size="10" fill="#8a9b90">4월</text>
+    </svg>
+    <div style="margin-top:14px;">
+      <div class="card-title">레벨 내 비교</div>
+      <div class="avg-chart">
+        <div class="avg-row">
+          <div class="avg-label">지율이</div>
+          <div class="avg-bar-wrap">
+            <div class="avg-bar" style="width:134px;background:#2D6A4F;"></div>
+            <span class="avg-val" style="color:#2D6A4F;">84%</span>
+          </div>
+        </div>
+        <div class="avg-row">
+          <div class="avg-label">반 평균</div>
+          <div class="avg-bar-wrap">
+            <div class="avg-bar" style="width:122px;background:#94a3b8;"></div>
+            <span class="avg-val" style="color:#94a3b8;">76%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 독서습관 지수 (리드인에 없는 항목) -->
+  <div class="card">
+    <div class="card-title">📊 이달의 독서 지수</div>
+    <div class="habit-grid">
+      <div class="habit-item">
+        <div class="habit-num">8</div>
+        <div class="habit-unit">권</div>
+        <div class="habit-label">올해 누적 독서</div>
+      </div>
+      <div class="habit-item">
+        <div class="habit-num">94%</div>
+        <div class="habit-unit"></div>
+        <div class="habit-label">수업 출석률</div>
+      </div>
+      <div class="habit-item">
+        <div class="habit-num">4/4</div>
+        <div class="habit-unit">회</div>
+        <div class="habit-label">독서노트 완성</div>
+      </div>
+      <div class="habit-item">
+        <div class="habit-num">↑13</div>
+        <div class="habit-unit">점</div>
+        <div class="habit-label">3개월 성장폭</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 이달의 성장 -->
+  <div class="card insight-card">
+    <div class="card-title">이달의 성장</div>
+    <div class="insight-head">
+      <div class="insight-dot" style="background:var(--primary);"></div>
+      <div class="insight-label">성장 포인트</div>
+    </div>
+    <div class="insight-body">삐삐의 독특한 시각으로 세상을 바라보는 주인공의 감정을 놀라울 정도로 정확하게 포착했어요. 사실 영역에서 만점에 가까운 점수를 기록한 것은 꼼꼼하게 읽는 독서 습관이 자리 잡혔다는 증거입니다.</div>
+  </div>
+
+  <!-- 함께 다듬어갈 부분 -->
+  <div class="card insight-card">
+    <div class="card-title">함께 다듬어갈 부분</div>
+    <div class="insight-head">
+      <div class="insight-dot" style="background:var(--coral);"></div>
+      <div class="insight-label">다음 목표</div>
+    </div>
+    <div class="insight-body">비판 영역에서 "이 이야기에서 무엇이 옳고 그른가?"를 스스로 판단하는 연습이 필요해요. 다음 달에는 읽으면서 "나라면 어떻게 했을까?"를 메모하는 습관을 들여볼게요.</div>
+  </div>
+
+  <!-- 강사 코멘트 -->
+  <div class="teacher-box">
+    <div class="teacher-name">✏️ 박선생님의 종합 코멘트</div>
+    <div class="teacher-text">지율이는 이번 달 삐삐 롱스타킹을 읽으며 주인공의 자유로운 정신에 깊이 공감하는 모습을 보여주었어요. 특히 등장인물의 마음을 헤아리는 공감 능력이 또래보다 훨씬 뛰어납니다. 비판적 사고는 아직 성장 중이지만, 이 부분은 책을 많이 읽을수록 자연스럽게 발전하는 영역이니 걱정하지 않으셔도 됩니다. 다음 달에는 생각을 글로 표현하는 힘을 더 길러볼 예정입니다. 꾸준히 잘 따라오고 있어서 정말 든든해요.</div>
+  </div>
+
+  <!-- 다음 달 추천 도서 -->
+  <div class="next-book">
+    <div class="next-label">📚 다음 달 추천 도서 — 비판 영역 집중 보강</div>
+    <div class="next-title">《사자왕 형제의 모험》</div>
+    <div class="next-level">레벨 3-B</div>
+    <div class="next-reason">선악의 경계와 용기의 의미를 스스로 판단하는 비판적 사고 훈련에 최적</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <a href="#" class="btn">원장님과 상담 예약하기</a>
+  </div>
+
+</div>
+
+<div class="footer">하남 책나무독서논술 · 본 리포트는 자동 생성됩니다</div>
+
+</body>
+</html>
