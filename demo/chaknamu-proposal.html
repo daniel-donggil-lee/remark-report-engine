@@ -450,6 +450,78 @@
   }
 
   /* ══════════════════════════════════
+     § 06.5  ROADMAP
+  ══════════════════════════════════ */
+  #s6b {
+    background: var(--g1);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .road-label { color: var(--g4); }
+
+  .road-h {
+    font-size: clamp(26px, 4vw, 44px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    word-break: keep-all;
+  }
+
+  .road-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,.55);
+    line-height: 1.8;
+    margin-bottom: 44px;
+    word-break: keep-all;
+    max-width: 520px;
+  }
+
+  .road-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .road-grid { grid-template-columns: 1fr; }
+  }
+
+  .road-card {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+    padding: 28px 24px;
+  }
+
+  .road-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--g4);
+    margin-bottom: 14px;
+  }
+
+  .road-icon { font-size: 28px; margin-bottom: 14px; }
+
+  .road-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .road-body {
+    font-size: 13px;
+    color: rgba(255,255,255,.55);
+    line-height: 1.75;
+    word-break: keep-all;
+  }
+
+  /* ══════════════════════════════════
      § 07  PILOT
   ══════════════════════════════════ */
   #s7 { background: var(--bg); border-bottom: 1px solid var(--line); }
@@ -787,6 +859,37 @@
         <div class="gain-who">책나무 본사</div>
         <div class="gain-title">600개 가맹점이<br>같은 수준으로</div>
         <div class="gain-body">어느 지점이든 동일한 학부모 경험. 리드인과의 기술 격차가 사라집니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥.5  ROADMAP -->
+<div id="s6b" class="sec">
+  <div class="inner">
+    <div class="label road-label">파일럿 이후</div>
+    <h2 class="road-h">전국이 하나로 연결됩니다.</h2>
+    <p class="road-sub">
+      파일럿 데이터가 쌓이면, 600개 가맹점 전체 규모에서만 가능한 기능이 열립니다.
+    </p>
+    <div class="road-grid">
+      <div class="road-card">
+        <div class="road-phase">Phase 2</div>
+        <div class="road-icon">📊</div>
+        <div class="road-title">원장 대시보드</div>
+        <div class="road-body">가맹점주가 학생별 독서 현황·리포트 발송 상태를 실시간으로 확인합니다. 상담 전에 이미 데이터를 손에 쥐고 있습니다.</div>
+      </div>
+      <div class="road-card">
+        <div class="road-phase">Phase 2</div>
+        <div class="road-icon">🏆</div>
+        <div class="road-title">순독시간 전국 순위</div>
+        <div class="road-body">전국 책나무 학생의 독서시간 누적 랭킹. 지점별·학년별 순위로 학부모의 자발적 참여와 입소문이 만들어집니다.</div>
+      </div>
+      <div class="road-card">
+        <div class="road-phase">Phase 2</div>
+        <div class="road-icon">⚔️</div>
+        <div class="road-title">지점간 독서 대회</div>
+        <div class="road-body">34개 지사 대항전. 지사별 월간 독서 성취도로 순위를 매기고 시상합니다. 가맹점주의 자발적 홍보가 따라옵니다.</div>
       </div>
     </div>
   </div>
