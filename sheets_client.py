@@ -1,19 +1,31 @@
 """
 Google Sheets 읽기/쓰기 클라이언트
-~/.clasprc.json OAuth2 토큰 재사용
+서비스 계정 인증 (service_account.json)
+로컬 fallback: ~/.clasprc.json OAuth2 (개발용)
 """
-import json
+import json, os
 from datetime import datetime
 from pathlib import Path
 
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 
-CLASPRC = Path.home() / '.clasprc.json'
+BASE_DIR = Path(__file__).parent
+SA_PATH  = BASE_DIR / 'service_account.json'
+CLASPRC  = Path.home() / '.clasprc.json'
 
 
 def get_creds():
+    # 서비스 계정 우선 (GitHub Actions 환경 포함)
+    sa_file = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', str(SA_PATH))
+    if Path(sa_file).exists():
+        from google.oauth2 import service_account
+        return service_account.Credentials.from_service_account_file(
+            sa_file,
+            scopes=['https://www.googleapis.com/auth/spreadsheets'],
+        )
+    # fallback: 로컬 clasprc OAuth2
+    from google.oauth2.credentials import Credentials
+    from google.auth.transport.requests import Request
     with open(CLASPRC) as f:
         tokens = json.load(f)['tokens']['default']
     creds = Credentials(
