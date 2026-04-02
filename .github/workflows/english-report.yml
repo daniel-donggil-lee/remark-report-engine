@@ -1,0 +1,136 @@
+name: 영어 회차 리포트 자동 발송
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 매일 22:00 KST (UTC+9 = UTC 13:00)
+  workflow_dispatch:        # 수동 실행 (테스트용)
+    inputs:
+      dry_run:
+        description: 'dry-run (발송 없이 HTML만 생성)'
+        type: boolean
+        default: true
+      student:
+        description: '특정 학생만 (빈칸=전체)'
+        type: string
+        default: ''
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout 리포트 엔진
+        uses: actions/checkout@v4
+
+      - name: ⬇️ Checkout remark-homepage
+        uses: actions/checkout@v4
+        with:
+          repository: donggillee-ship-it/remark-homepage
+          token: ${{ secrets.HOMEPAGE_DEPLOY_TOKEN }}
+          path: remark-homepage
+
+      - name: 🐍 Python 3.11 세팅
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 🔑 서비스 계정 키 설정
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT }}' > service_account.json
+
+      - name: 🔑 Solapi 설정 주입
+        run: |
+          python3 - <<'EOF'
+          import os, textwrap
+          content = textwrap.dedent(f"""
+          import os
+          ACADEMY = {{
+              "name":            "리마크영어국어학원",
+              "spreadsheet_id":  "17oD2prV7kF35L-7iPf6EeGq7UDEJvgqcHXXY3tib4mQ",
+              "solapi_key":      "{os.environ['SOLAPI_KEY']}",
+              "solapi_secret":   "{os.environ['SOLAPI_SECRET']}",
+              "from_number":     "{os.environ['FROM_NUMBER']}",
+              "kakao_pf_id":     "{os.environ['KAKAO_PF_ID']}",
+              "report_base_url": "https://www.remarkedu.com/report/",
+              "cta_link":        "{os.environ['CTA_LINK']}",
+              "logo_path":       "assets/logo.png",
+          }}
+          SHEETS = {{
+              "학생명단": "엔진_학생명단",
+              "주간점수": "엔진_주간점수",
+              "월간점수": "엔진_월간점수",
+              "강사메모": "엔진_강사메모",
+              "발송내역": "엔진_발송내역",
+          }}
+          TRAFFIC = {{
+              "green":  {{"r_min": 80, "k_min": 75}},
+              "red":    {{"r_max": 65, "k_max": 65}},
+          }}
+          """).strip()
+          with open("config.py", "w") as f:
+              f.write(content)
+          print("✅ config.py 생성 완료")
+          EOF
+        env:
+          SOLAPI_KEY:    ${{ secrets.SOLAPI_KEY }}
+          SOLAPI_SECRET: ${{ secrets.SOLAPI_SECRET }}
+          FROM_NUMBER:   ${{ secrets.FROM_NUMBER }}
+          KAKAO_PF_ID:   ${{ secrets.KAKAO_PF_ID }}
+          CTA_LINK:      ${{ secrets.CTA_LINK }}
+
+      - name: 🖼️ 로고 다운로드
+        run: |
+          mkdir -p assets
+          curl -sL "${{ secrets.LOGO_URL }}" -o assets/logo.png
+          echo "✅ 로고 다운로드 완료 ($(wc -c < assets/logo.png) bytes)"
+
+      - name: 📊 영어 회차 리포트 생성 및 발송
+        id: report
+        run: |
+          DATE=$(date -u +%Y-%m-%d --date='9 hours')
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+
+          ARGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ -n "${{ github.event.inputs.student }}" ]; then
+            ARGS="$ARGS --student ${{ github.event.inputs.student }}"
+          fi
+
+          python3 run.py english $ARGS
+
+      - name: 📁 HTML → remark-homepage 복사
+        run: |
+          DATE="${{ steps.report.outputs.date }}"
+          SRC="output/english/$DATE"
+          DEST="remark-homepage/public/report/english/$DATE"
+
+          if [ -d "$SRC" ] && ls "$SRC"/*.html 1>/dev/null 2>&1; then
+            mkdir -p "$DEST"
+            cp "$SRC"/*.html "$DEST/"
+            COUNT=$(ls "$SRC"/*.html | wc -l | tr -d ' ')
+            echo "✅ HTML $COUNT개 복사 완료 → $DEST"
+          else
+            echo "⚠️ 오늘($DATE) 영어 수업 데이터 없음 — 스킵"
+          fi
+
+      - name: 🚀 remark-homepage 배포 (Vercel 자동 트리거)
+        run: |
+          cd remark-homepage
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+
+          DATE="${{ steps.report.outputs.date }}"
+          git add public/report/english/ 2>/dev/null || true
+
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 배포 스킵"
+          else
+            git commit -m "auto: 영어 회차 리포트 $DATE"
+            git push
+            echo "✅ remark-homepage 푸시 완료 — Vercel 자동 배포 시작"
+          fi
