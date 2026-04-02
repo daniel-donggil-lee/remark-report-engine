@@ -25,7 +25,7 @@ STUDENT = {
     'academy':      '미사리드인독서논술',
     'month':        '4월',
     # 이달의 책
-    'book_title':   '내 이름은 삐삐롱 스타킹',
+    'book_title':   '내 이름은 삐삐 롱스타킹',
     'book_level':   '레벨 3-B',
     'book_author':  '아스트리드 린드그렌',
     # 독서이해도
