@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{student_name}} — {{week_label}} 영어 주간 리포트</title>
+<style>
+  :root {
+    --blue:   #2563EB;
+    --blue2:  #3B82F6;
+    --indigo: #6366F1;
+    --yellow: #b8860b;
+    --red:    #c53030;
+    --gray:   #6b7280;
+    --bg:     #f0f4ff;
+    --card:   #ffffff;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: var(--blue);
+    padding: 20px 24px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header img { height: 40px; object-fit: contain; }
+  .header-info { color: white; }
+  .header-title { font-size: 11px; opacity: .7; letter-spacing: .08em; text-transform: uppercase; }
+  .header-name  { font-size: 20px; font-weight: 700; margin-top: 2px; }
+  .header-sub   { font-size: 12px; opacity: .75; margin-top: 1px; }
+
+  /* ── 본문 ── */
+  .body { padding: 16px; max-width: 480px; margin: 0 auto; }
+
+  /* ── 신호등 배너 ── */
+  .traffic-banner {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .traffic-banner.traffic-green  { background: #e0eaff; border-left: 5px solid var(--blue2); }
+  .traffic-banner.traffic-yellow { background: #fff8e1; border-left: 5px solid #f9a825; }
+  .traffic-banner.traffic-red    { background: #fde8e8; border-left: 5px solid var(--red); }
+  .traffic-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+  .traffic-green  .traffic-dot { background: var(--blue2); }
+  .traffic-yellow .traffic-dot { background: #f9a825; }
+  .traffic-red    .traffic-dot { background: var(--red); }
+  .traffic-info { flex: 1; }
+  .traffic-pct  { font-size: 22px; font-weight: 700; }
+  .traffic-green  .traffic-pct { color: var(--blue); }
+  .traffic-yellow .traffic-pct { color: #7c6200; }
+  .traffic-red    .traffic-pct { color: var(--red); }
+  .traffic-label { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  /* ── 카드 ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  /* ── 시험 막대 ── */
+  .en-exam-bars { display: flex; flex-direction: column; gap: 10px; }
+  .en-exam-row  { display: flex; align-items: center; gap: 10px; }
+  .en-exam-label {
+    font-size: 12px;
+    color: var(--gray);
+    width: 44px;
+    flex-shrink: 0;
+  }
+  .en-bar-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .en-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+  }
+  .en-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width .3s;
+  }
+  /* 70% 기준선 */
+  .en-pass-line {
+    position: absolute;
+    top: -4px;
+    left: 70%;
+    width: 2px;
+    height: 16px;
+    background: #94a3b8;
+    border-radius: 1px;
+  }
+  .en-exam-score {
+    font-size: 12px;
+    font-weight: 600;
+    width: 64px;
+    flex-shrink: 0;
+    color: #374151;
+  }
+  .en-pct { font-weight: 400; color: var(--gray); }
+  .en-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .en-pass   { background: #dbeafe; color: var(--blue); }
+  .en-retest { background: #fde8e8; color: var(--red); }
+
+  /* ── 추이 차트 ── */
+  .trend-wrap { margin-top: 4px; }
+
+  /* ── 강사 메모 ── */
+  .en-memo {
+    background: #f0f4ff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #374151;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .en-memo-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── AI 한줄 평 ── */
+  .comment-box {
+    background: #eff6ff;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #1e3a5f;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--blue);
+  }
+
+  /* ── CTA ── */
+  .cta-wrap { text-align: center; margin-top: 20px; padding-bottom: 28px; }
+  .btn {
+    display: inline-block;
+    border-radius: 50px;
+    padding: 13px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .02em;
+  }
+  .btn-primary { background: var(--blue); color: white; }
+
+  /* ── 푸터 ── */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    padding: 12px 16px 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="data:image/png;base64,{{logo_base64}}" alt="리마크에듀 로고">
+  <div class="header-info">
+    <div class="header-title">{{week_label}} 영어 주간 리포트</div>
+    <div class="header-name">{{student_name}}</div>
+    <div class="header-sub">{{school}} {{grade}} · 담당: {{teacher_name}}</div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- 종합 성취율 배너 -->
+  <div class="traffic-banner {{traffic_class}}">
+    <div class="traffic-dot"></div>
+    <div class="traffic-info">
+      <div class="traffic-pct">{{overall_pct}}%</div>
+      <div class="traffic-label">이번 주 종합 성취율 · {{traffic_label}}</div>
+    </div>
+  </div>
+
+  <!-- 시험별 결과 -->
+  <div class="card">
+    <div class="card-title">이번 주 시험 결과</div>
+    {{exam_bars}}
+  </div>
+
+  <!-- 3주 추이 -->
+  <div class="card">
+    <div class="card-title">3주 성취율 추이</div>
+    <div class="trend-wrap">{{trend_chart}}</div>
+  </div>
+
+  <!-- 강사 메모 (있을 때만) -->
+  {{memo_section}}
+
+  <!-- AI 한줄 평 -->
+  <div class="comment-box">{{ai_comment}}</div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <a href="{{cta_link}}" class="btn btn-primary">상담 신청하기</a>
+  </div>
+
+</div>
+
+<div class="footer">리마크에듀 · 본 리포트는 자동 생성되었습니다.</div>
+
+</body>
+</html>

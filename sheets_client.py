@@ -148,3 +148,70 @@ def log_send(spreadsheet_id, send_type, student_name, url, status, sheet_name='�
     """발송 이력 기록: [날짜, 유형, 이름, URL, 상태]"""
     date = datetime.now().strftime('%Y-%m-%d %H:%M')
     append_log(spreadsheet_id, sheet_name, [date, send_type, student_name, url, status])
+
+
+# ─────────────────────────────────────────────────────────────
+# 영어과 전용
+# ─────────────────────────────────────────────────────────────
+
+def read_english_students(spreadsheet_id, sheet_name='엔진_영어_학생명단'):
+    """영어 학생명단 → [{이름, 학교, 학년, 담당강사, 학부모전화}, ...]"""
+    return read_sheet(spreadsheet_id, sheet_name)
+
+
+def read_english_weekly(spreadsheet_id, sheet_name='엔진_영어_주간시험', target_date=None):
+    """
+    영어 주간시험 탭. target_date=None이면 최신 날짜 자동 선택.
+    반환: ([{날짜, 이름, 시험유형, 맞은수, 전체수, 재시여부}, ...], date)
+    """
+    rows = read_sheet(spreadsheet_id, sheet_name)
+    if not rows:
+        return [], None
+
+    if target_date:
+        filtered = [r for r in rows if r.get('날짜', '') == target_date]
+        return filtered, target_date
+
+    dates = sorted(set(r.get('날짜', '') for r in rows if r.get('날짜')), reverse=True)
+    latest = dates[0] if dates else None
+    filtered = [r for r in rows if r.get('날짜', '') == latest]
+    return filtered, latest
+
+
+def read_english_memos(spreadsheet_id, sheet_name='엔진_영어_강사메모', target_date=None):
+    """영어 강사메모 탭. 반환: [{날짜, 이름, 메모}, ...]"""
+    rows = read_sheet(spreadsheet_id, sheet_name)
+    if not rows:
+        return []
+    if target_date:
+        return [r for r in rows if r.get('날짜', '') == target_date]
+    dates = sorted(set(r.get('날짜', '') for r in rows if r.get('날짜')), reverse=True)
+    latest = dates[0] if dates else None
+    return [r for r in rows if r.get('날짜', '') == latest]
+
+
+def read_english_history(spreadsheet_id, sheet_name='엔진_영어_주간시험', student_name=None, last_n=3):
+    """학생별 최근 N주 주간 평균 성취율 이력"""
+    rows = read_sheet(spreadsheet_id, sheet_name)
+    if student_name:
+        rows = [r for r in rows if r.get('이름', '') == student_name]
+    dates = sorted(set(r.get('날짜', '') for r in rows if r.get('날짜')), reverse=True)
+    recent = dates[:last_n]
+    result = []
+    for d in sorted(recent):
+        week_rows = [r for r in rows if r.get('날짜') == d and r.get('이름') == student_name]
+        total_correct = sum(int(r.get('맞은수', 0) or 0) for r in week_rows)
+        total_all     = sum(int(r.get('전체수', 1) or 1) for r in week_rows)
+        if total_all:
+            result.append({
+                'month': d[5:],   # '2026-04-07' → '04-07'
+                'score': total_correct,
+                'total': total_all,
+            })
+    return result
+
+
+def log_english_send(spreadsheet_id, student_name, url, status, sheet_name='엔진_영어_발송내역'):
+    """영어 발송내역 기록: [날짜, 이름, URL, 상태]"""
+    date = datetime.now().strftime('%Y-%m-%d %H:%M')
+    append_log(spreadsheet_id, sheet_name, [date, student_name, url, status])

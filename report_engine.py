@@ -266,6 +266,74 @@ def render_monthly(template: str, s: dict, logo_b64: str, enhanced: dict, avg, t
     return html
 
 
+def build_exam_bars(exams: list) -> str:
+    """영어 시험유형별 가로막대 HTML. 70% 기준선 포함."""
+    if not exams:
+        return '<p style="color:#9ca3af;font-size:13px;">시험 데이터 없음</p>'
+    rows = ''
+    for e in exams:
+        correct = int(e.get('맞은수', 0) or 0)
+        total   = int(e.get('전체수',  1) or 1)
+        pct     = round(correct / total * 100) if total else 0
+        retest  = str(e.get('재시여부', 'X')).upper() == 'O'
+        color   = '#2563EB' if pct >= 70 else '#c53030'
+        badge   = ('<span class="en-badge en-pass">통과</span>'
+                   if pct >= 70 else
+                   '<span class="en-badge en-retest">재시</span>')
+        rows += (
+            f'<div class="en-exam-row">'
+            f'<div class="en-exam-label">{e.get("시험유형","")}</div>'
+            f'<div class="en-bar-wrap">'
+            f'<div class="en-bar-bg">'
+            f'<div class="en-bar-fill" style="width:{pct}%;background:{color};"></div>'
+            f'<div class="en-pass-line"></div>'
+            f'</div>'
+            f'<div class="en-exam-score">{correct}/{total}&nbsp;<span class="en-pct">({pct}%)</span></div>'
+            f'{badge}'
+            f'</div>'
+            f'</div>'
+        )
+    return f'<div class="en-exam-bars">{rows}</div>'
+
+
+def render_english_weekly(template: str, s: dict, logo_b64: str, week_label: str,
+                          ai_comment: str, report_url: str) -> str:
+    pct = s.get('overall_pct', 0)
+    if pct >= 85:
+        tclass, tlabel = 'traffic-green', '우수'
+    elif pct >= 70:
+        tclass, tlabel = 'traffic-yellow', '안정적'
+    else:
+        tclass, tlabel = 'traffic-red', '보강 필요'
+
+    trend_svg = build_trend_chart(s.get('history', []))
+    exam_bars = build_exam_bars(s.get('exams', []))
+    memo_html = (f'<div class="en-memo"><span class="en-memo-icon">💬</span>{s["memo"]}</div>'
+                 if s.get('memo') else '')
+
+    repl = {
+        '{{logo_base64}}':   logo_b64,
+        '{{student_name}}':  s['name'],
+        '{{school}}':        s.get('school', ''),
+        '{{grade}}':         s.get('grade', ''),
+        '{{week_label}}':    week_label,
+        '{{overall_pct}}':   str(pct),
+        '{{traffic_class}}': tclass,
+        '{{traffic_label}}': tlabel,
+        '{{exam_bars}}':     exam_bars,
+        '{{trend_chart}}':   trend_svg,
+        '{{memo_section}}':  memo_html,
+        '{{ai_comment}}':    ai_comment,
+        '{{report_url}}':    report_url,
+        '{{cta_link}}':      ACADEMY['cta_link'],
+        '{{teacher_name}}':  s.get('teacher_name', ''),
+    }
+    html = template
+    for k, v in repl.items():
+        html = html.replace(k, str(v))
+    return html
+
+
 def render_weekly(template: str, s: dict, logo_b64: str, week_label: str,
                   ai_comment: str, report_url: str) -> str:
     r_p = round(s['r_score'] / s['r_total'] * 100) if s.get('r_total') else 0

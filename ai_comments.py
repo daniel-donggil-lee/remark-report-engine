@@ -140,6 +140,42 @@ JSON만 출력:
     return json.loads(raw[start:end])
 
 
+def english_weekly_comment(student: dict) -> str:
+    """
+    student: {name, grade, school, exams, overall_pct, memo(optional)}
+    반환: 1~2문장 한줄 평 (plain text)
+    """
+    exams = student.get('exams', [])
+    lines = []
+    for e in exams:
+        correct = int(e.get('맞은수', 0) or 0)
+        total   = int(e.get('전체수',  1) or 1)
+        pct     = round(correct / total * 100) if total else 0
+        retest  = ' — 재시' if str(e.get('재시여부', 'X')).upper() == 'O' else ''
+        lines.append(f'  - {e.get("시험유형","")}: {correct}/{total} ({pct}%){retest}')
+    exam_summary = '\n'.join(lines) if lines else '데이터 없음'
+    note = student.get('memo') or ''
+
+    prompt = f"""리마크영어국어학원 {student.get('grade','')} {student['name']} 학생의 이번 주 영어 수업 결과입니다.
+
+【이번 주 시험 결과】
+{exam_summary}
+- 종합 성취율: {student.get('overall_pct', 0)}%
+{f"- 강사 메모: {note}" if note else ""}
+
+학부모에게 보낼 한줄 평을 1~2문장으로 작성해주세요.
+- 따뜻하고 전문적인 톤, 해요체
+- 성취율이 높으면 격려, 재시험이 있으면 꾸준한 복습의 중요성 강조
+- 문장만 출력 (따옴표, 접두사 없이)"""
+
+    msg = _get_client().messages.create(
+        model='claude-haiku-4-5-20251001',
+        max_tokens=200,
+        messages=[{'role': 'user', 'content': prompt}],
+    )
+    return msg.content[0].text.strip()
+
+
 def monthly_comments_batch(students):
     """여러 학생 월간 코멘트 일괄 생성"""
     results = []
