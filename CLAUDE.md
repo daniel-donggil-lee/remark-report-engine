@@ -119,8 +119,28 @@ GitHub Actions cron (22:00 KST)
 
 ## 최근 작업 맥락 (2026-04-02)
 
-- 엔진 전체 모듈 신규 작성 완료: sheets_client / sender / ai_comments / report_engine / run
-- 영어과 확장: sheets_client 영어 함수 추가, report_engine build_exam_bars/render_english_weekly, ai_comments english_weekly_comment, run.py english 모드, templates/weekly_en.html
-- 스프레드시트 국어내신마스터에서 분리 → 전용 시트 생성 (ID: 17oD2prV7kF35L-7iPf6EeGq7UDEJvgqcHXXY3tib4mQ)
-- 영어 데모 HTML 생성: demo/english-sample.html (이서연 더미 데이터)
-- 다음 단계: ① 서비스 계정 전환 ② GitHub Actions cron 셋업 ③ 영어 회차 리포트 시트 구조 반영 (엔진_영어_주간시험 → 엔진_영어_수업기록으로 리네임, 컬럼 추가)
+### 완료된 작업
+- 영어 회차 리포트 구조 전면 개편 완료 (커밋 052cff4)
+  - `엔진_영어_수업기록` 탭 통합: 수업내용·재시상태·강사메모 인라인
+  - AI 코멘트 제거, 수업내용 섹션 추가
+  - 재시상태 3종 뱃지: 당일완료(초록) / 예정+약속일(빨강) / 이번완료(초록)
+  - run.py: ENG_SID 분리 적용 (국어 SID와 완전 분리)
+  - 영어 스프레드시트 드롭다운 설정 완료
+    - D열(시험유형): 단어/문법/독해/기타
+    - G열(재시상태): 당일완료/예정/이번완료
+  - 권보경 원장(bokyungkwon90-gif) Collaborator 초대 완료
+
+### 영어 스프레드시트
+- **ID**: `17oD2prV7kF35L-7iPf6EeGq7UDEJvgqcHXXY3tib4mQ` (영어 선생님/조교 전용)
+- **입력 구조**: 1행 = 1시험 (학생 1명이 3개 시험 → 3행), 시험유형 수 제한 없음
+- 수업내용: 같은 날 첫 행만 입력 / 강사메모: 특이사항 있는 학생 행에만
+
+### 영어 데모
+- **링크**: https://daniel-donggil-lee.github.io/remark-report-engine/demo/english-sample.html
+- 더미 데이터: 이서연(미사고 고2, 권보경 담당) — 단어통과/문법재시예정/독해이번완료
+
+### 다음 단계
+1. 권보경 원장이 GitHub 초대 수락 후 시트 구조 피드백
+2. 영어 학생명단(`엔진_영어_학생명단`) 실제 데이터 입력
+3. `엔진_영어_수업기록`에 샘플 데이터 입력 후 dry-run 검증
+4. GitHub Actions 서비스 계정 키 Secrets 등록 → cron 자동 발송 활성화
