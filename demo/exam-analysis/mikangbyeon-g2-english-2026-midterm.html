@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미사강변중 2학년 영어 | 2026 1학기 중간고사 적중 분석</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #ffffff;
+    color: #1a1a2e;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    color: #fff;
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.03) 0%, transparent 50%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 6px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 .highlight {
+    background: linear-gradient(90deg, #ffd700, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Score Banner ── */
+  .score-banner {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    margin: -40px auto 60px;
+    max-width: 880px;
+    padding: 40px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  .score-item .number {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .score-item .number.gold { color: #d4a000; }
+  .score-item .number.blue { color: #302b63; }
+  .score-item .number.green { color: #1a8a5c; }
+  .score-item .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #888;
+    margin-top: 8px;
+  }
+
+  /* ── Section ── */
+  section {
+    margin-bottom: 64px;
+  }
+  .section-tag {
+    display: inline-block;
+    background: #f0edff;
+    color: #302b63;
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  section h2 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    color: #1a1a2e;
+  }
+  section p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 16px;
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, #302b63, #d4a000);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    background: #302b63;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 3px #302b63;
+  }
+  .timeline-item.gold::before {
+    background: #d4a000;
+    box-shadow: 0 0 0 3px #d4a000;
+  }
+  .timeline-date {
+    font-size: 13px;
+    font-weight: 700;
+    color: #302b63;
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .timeline-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ── Material Cards ── */
+  .material-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .material-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 24px;
+    transition: box-shadow 0.2s;
+  }
+  .material-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .material-card .card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .material-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .material-card p {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 0;
+  }
+  .material-card.full-width {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #302b63, #24243e);
+    color: #fff;
+    border: none;
+  }
+  .material-card.full-width p { color: rgba(255,255,255,0.7); }
+
+  /* ── Hit Rate Table ── */
+  .hit-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+  }
+  .hit-table thead th {
+    background: #302b63;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 14px 16px;
+    text-align: left;
+  }
+  .hit-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+  .hit-table tbody tr:last-child td { border-bottom: none; }
+  .hit-table tbody tr:nth-child(even) { background: #fafafa; }
+  .badge-hit {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .badge-perfect {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    color: #1a1a2e;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  /* ── Comparison Box ── */
+  .comparison {
+    background: #fffde7;
+    border: 2px solid #ffd700;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .comparison h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #1a1a2e;
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 12px;
+    align-items: start;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #e0d68a;
+  }
+  .compare-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .compare-side {
+    background: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .compare-side.remark { border: 2px solid #302b63; }
+  .compare-side.actual { border: 2px solid #d4a000; }
+  .compare-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .compare-label.remark { color: #302b63; }
+  .compare-label.actual { color: #d4a000; }
+  .compare-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #d4a000;
+    font-weight: 900;
+  }
+
+  /* ── Stats Row ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-box {
+    text-align: center;
+    padding: 24px 16px;
+    border-radius: 14px;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+  .stat-box .stat-num {
+    font-size: 32px;
+    font-weight: 900;
+    color: #302b63;
+  }
+  .stat-box .stat-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    background: #fafafa;
+    border-top: 1px solid #eee;
+    padding: 40px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #302b63;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .footer p {
+    font-size: 13px;
+    color: #999;
+  }
+
+  /* ── Callout ── */
+  .callout {
+    background: linear-gradient(135deg, #302b63, #24243e);
+    color: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+  .callout h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .callout p, .callout li, .callout b {
+    color: #fff;
+    font-size: 15px;
+  }
+  .callout .callout-highlight {
+    color: #ffd700;
+    font-weight: 800;
+  }
+
+  /* ── Process Flow ── */
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .process-step {
+    text-align: center;
+    padding: 20px 8px;
+    border-radius: 12px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    position: relative;
+  }
+  .process-step::after {
+    content: '\2192';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-size: 18px;
+    z-index: 1;
+  }
+  .process-step:last-child::after { display: none; }
+  .process-step .step-num {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 50%;
+    background: #302b63;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .process-step .step-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.4;
+  }
+
+  /* ── Grammar Match ── */
+  .grammar-match {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .grammar-box {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #eee;
+    background: #fff;
+  }
+  .grammar-box h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .grammar-box .check { color: #2e7d32; }
+  .grammar-box p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  .grammar-box .example {
+    font-size: 13px;
+    color: #302b63;
+    font-weight: 600;
+    background: #f0edff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 28px; }
+    .score-banner { grid-template-columns: 1fr; gap: 20px; margin: -30px 16px 40px; padding: 28px; }
+    .score-item .number { font-size: 40px; }
+    .material-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .process-flow { grid-template-columns: 1fr; }
+    .process-step::after { display: none; }
+    .grammar-match { grid-template-columns: 1fr; }
+    .compare-row { grid-template-columns: 1fr; }
+    .compare-arrow { transform: rotate(90deg); }
+    .container { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="hero">
+  <div class="hero-badge">2026학년도 1학기 중간고사 분석 리포트</div>
+  <h1>미사강변중 2학년 영어<br><span class="highlight">서답형 전 문항 적중</span></h1>
+  <p class="subtitle">리마크 동형 모의고사와 실제 시험의 정밀 대조 분석</p>
+</div>
+
+<!-- ═══════════════════ SCORE BANNER ═══════════════════ -->
+<div class="container">
+  <div class="score-banner">
+    <div class="score-item">
+      <div class="number gold">100%</div>
+      <div class="label">서답형 적중률</div>
+    </div>
+    <div class="score-item">
+      <div class="number blue">100%</div>
+      <div class="label">출제 유형 커버율</div>
+    </div>
+    <div class="score-item">
+      <div class="number green">4/4</div>
+      <div class="label">서답형 정답 완전 일치</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ EXAM INFO ═══════════════════ -->
+<div class="container">
+  <section>
+    <span class="section-tag">시험 개요</span>
+    <h2>미사강변중학교 2학년 1차 정기시험</h2>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num">4.28</div>
+        <div class="stat-label">시험일 (월)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">1, 2과</div>
+        <div class="stat-label">시험 범위</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">100점</div>
+        <div class="stat-label">선택 90 + 서답 10</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">동아</div>
+        <div class="stat-label">윤정미 교과서</div>
+      </div>
+    </div>
+
+    <p>2026년 4월 28일 실시된 미사강변중학교 2학년 영어 1차 정기시험은 동아출판(윤정미) 교과서 1과 <em>The Future Is In Our Hands</em>와 2과 <em>How Teens Talk Now</em> 범위에서 출제되었습니다. 선택형 20문항(90점)과 서답형 4개 소문항(10점)으로 구성되었으며, 서답형에서는 핵심 문법인 <strong>to부정사 형용사적 용법, make 5형식, 간접의문문</strong>이 집중 출제되었습니다.</p>
+  </section>
+
+  <!-- ═══════════════════ PREPARATION PROCESS ═══════════════════ -->
+  <section>
+    <span class="section-tag">준비 과정</span>
+    <h2>5단계 내신 대비 시스템</h2>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-title">기출 분석<br>&amp; 출제 예측</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-title">본문 완전<br>암기 훈련</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-title">문법 유형별<br>집중 연습</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-title">실전 빈출<br>문제 풀이</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-title">동형 모의고사<br>최종 시뮬레이션</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">3월 넷째 주</div>
+        <div class="timeline-title">기출 분석 및 교재 선정</div>
+        <div class="timeline-desc">2024~2025 미사강변중 영어 기출 시험지를 분석하여 출제 경향을 파악했습니다. 동아(윤정미) 교과서의 출제 포인트를 학년별로 정리하고, 전국 동일 교과서 사용 학교의 기출 패턴까지 교차 검증하여 올해 출제 가능성이 높은 유형을 특정했습니다.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">4월 첫째 주</div>
+        <div class="timeline-title">본문 10단계 워크북으로 지문 완전 습득</div>
+        <div class="timeline-desc">1과, 2과 본문을 10단계로 분해한 워크북 통합본을 활용했습니다. 영문 해석 → 빈칸 채우기(우리말) → 빈칸 채우기(영어) → 배열 → 전문 쓰기까지, 본문의 모든 문장을 학생 스스로 재구성할 수 있을 때까지 반복 훈련했습니다.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">4월 둘째 주</div>
+        <div class="timeline-title">자체 문법 워크북 집중 훈련</div>
+        <div class="timeline-desc"><strong>1과 문법</strong>: to부정사 형용사적 용법(명사 뒤 수식, 전치사 동반 규칙)과 make+목적어+형용사(5형식)를 개념 정리 → 기초 연습 → 실전 적용 3단계로 연습했습니다. <strong>2과 문법</strong>: 간접의문문(의문사+주어+동사 어순)과 want+목적어+to부정사를 동일한 3단계 구조로 훈련했습니다.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">4월 셋째 주</div>
+        <div class="timeline-title">빈출 실전 문제 25제 풀이 + 직전 요약노트 정리</div>
+        <div class="timeline-desc">1과, 2과 각각 리마크 자체 제작 <strong>실전 대비 문제 25제</strong>를 풀고, 오답을 분석했습니다. 동시에 <strong>직전 요약노트</strong>로 Communication 표현, Grammar 핵심, Vocabulary 영영풀이를 최종 정리했습니다. 자체 단어장으로 1~2과 전체 어휘 60여 개를 3회 이상 테스트했습니다.</div>
+      </div>
+      <div class="timeline-item gold">
+        <div class="timeline-date">4월 23일 (시험 5일 전)</div>
+        <div class="timeline-title">리마크 자체 제작 동형 모의고사 실전 시뮬레이션</div>
+        <div class="timeline-desc">실제 시험과 동일한 형식(선택형 20문항 + 논술형 4문항, 100점 만점)의 <strong>동형 모의고사</strong>를 자체 출제하여 실전 환경에서 풀었습니다. 출제 유형, 배점, 난이도를 실제 시험에 최대한 맞추어 설계했으며, 이 모의고사의 서답형 정답 4개가 실제 시험에서 <strong>그대로 출제</strong>되었습니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ MATERIALS ═══════════════════ -->
+  <section>
+    <span class="section-tag">대비 자료</span>
+    <h2>과별 대비 자료 구성</h2>
+
+    <p style="margin-bottom:24px;">1과와 2과 각각에 대해 <strong>6종의 자료</strong>를 체계적으로 구성했습니다. 본문 습득 → 문법 훈련 → 실전 문제 풀이 → 최종 정리까지 빠짐없이 커버합니다.</p>
+
+    <div class="material-grid">
+      <div class="material-card">
+        <div class="card-icon">1</div>
+        <h4>본문 10단계 워크북 통합본</h4>
+        <p>본문 해석지 → 빈칸(우리말) → 빈칸(영어) → 문장 배열 → 전문 쓰기. 1과 1,2과 각 1권</p>
+      </div>
+      <div class="material-card">
+        <div class="card-icon">2</div>
+        <h4>자체 문법 워크북</h4>
+        <p>교과서 문법 포인트를 개념 정리 → 기초 연습 → 실전 적용 3단계로 완전 정복</p>
+      </div>
+      <div class="material-card">
+        <div class="card-icon">3</div>
+        <h4>자체 단어장 (1과 / 2과)</h4>
+        <p>과별 핵심 어휘 30~40개. 영영풀이 + 우리말 뜻 + 반복 테스트</p>
+      </div>
+      <div class="material-card">
+        <div class="card-icon">4</div>
+        <h4>빈출 유형 공략 + 해설</h4>
+        <p>전국 동일 교과서 사용 학교 기출 분석 기반 TOP 3 출제 유형 집중 공략</p>
+      </div>
+      <div class="material-card">
+        <div class="card-icon">5</div>
+        <h4>실전 대비 문제 25제</h4>
+        <p>1과, 2과 각 25문제. 실제 시험과 동일한 문항 구조로 최종 실력 점검</p>
+      </div>
+      <div class="material-card">
+        <div class="card-icon">6</div>
+        <h4>직전 요약노트</h4>
+        <p>Communication + Grammar + Vocabulary 핵심만 압축. 시험 직전 최종 리뷰용</p>
+      </div>
+      <div class="material-card full-width">
+        <div class="card-icon" style="font-size:28px;">FINAL</div>
+        <h4 style="font-size:18px;">리마크 자체 제작 동형 모의고사</h4>
+        <p>실제 시험과 동일한 25문항(선택 20 + 논술 4) / 100점 만점. 시험 5일 전 실전 시뮬레이션 실시. 담당 강사 윤혜원 직접 출제.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ HIT RATE ANALYSIS ═══════════════════ -->
+  <section>
+    <span class="section-tag">적중 분석</span>
+    <h2>서답형 4문항 — 정답 완전 일치</h2>
+
+    <p style="margin-bottom: 24px;">리마크 동형 모의고사에서 연습한 서답형 정답이 실제 시험의 서답형 정답과 <strong>글자 하나까지 동일</strong>합니다. 배점 10점 전액에 해당하는 결과입니다.</p>
+
+    <div class="comparison">
+      <h3>서답형 정답 1:1 대조</h3>
+
+      <div class="compare-row">
+        <div class="compare-side remark">
+          <div class="compare-label remark">리마크 동형 모의고사</div>
+          <strong>서답형 1-(1)</strong><br>
+          to부정사 형용사적 용법 연습<br>
+          <em>"I couldn't find a ___ to ___ near the building"</em><br>
+          <strong style="color:#302b63;">정답: place to park</strong>
+        </div>
+        <div class="compare-arrow">=</div>
+        <div class="compare-side actual">
+          <div class="compare-label actual">실제 시험</div>
+          <strong>서답형 1-(1)</strong><br>
+          to부정사 형용사적 용법 출제<br>
+          <br>
+          <strong style="color:#d4a000;">정답: place to park</strong>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-side remark">
+          <div class="compare-label remark">리마크 동형 모의고사</div>
+          <strong>서답형 1-(2)</strong><br>
+          make + 목적어 + 형용사 (5형식) 연습<br>
+          <em>"The news ___ us ___"</em><br>
+          <strong style="color:#302b63;">정답: made us nervous</strong>
+        </div>
+        <div class="compare-arrow">=</div>
+        <div class="compare-side actual">
+          <div class="compare-label actual">실제 시험</div>
+          <strong>서답형 1-(2)</strong><br>
+          make + 목적어 + 형용사 (5형식) 출제<br>
+          <br>
+          <strong style="color:#d4a000;">정답: made us nervous</strong>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-side remark">
+          <div class="compare-label remark">리마크 동형 모의고사</div>
+          <strong>서답형 2-(1)</strong><br>
+          간접의문문 변환 연습<br>
+          <em>"Why do people like Snow White?"</em><br>
+          <strong style="color:#302b63;">정답: why people like Snow White</strong>
+        </div>
+        <div class="compare-arrow">=</div>
+        <div class="compare-side actual">
+          <div class="compare-label actual">실제 시험</div>
+          <strong>서답형 2-(1)</strong><br>
+          간접의문문 변환 출제<br>
+          <br>
+          <strong style="color:#d4a000;">정답: why people like Snow White</strong>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="compare-side remark">
+          <div class="compare-label remark">리마크 동형 모의고사</div>
+          <strong>서답형 2-(2)</strong><br>
+          간접의문문 변환 연습<br>
+          <em>"Where does she live?"</em><br>
+          <strong style="color:#302b63;">정답: where she lives</strong>
+        </div>
+        <div class="compare-arrow">=</div>
+        <div class="compare-side actual">
+          <div class="compare-label actual">실제 시험</div>
+          <strong>서답형 2-(2)</strong><br>
+          간접의문문 변환 출제<br>
+          <br>
+          <strong style="color:#d4a000;">정답: where she lives</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>왜 서답형이 중요한가?</h3>
+      <p>서답형(논술형)은 학생이 <span class="callout-highlight">직접 영어 문장을 써야</span> 합니다. 객관식처럼 찍을 수 없고, 정확한 어순과 어형 변화를 알아야만 정답을 쓸 수 있습니다. 리마크는 동형 모의고사에서 <span class="callout-highlight">실제 시험과 동일한 문법 포인트, 동일한 정답 형태</span>를 미리 연습시켰기 때문에, 학생들이 시험장에서 당황하지 않고 자신 있게 답을 작성할 수 있었습니다.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ GRAMMAR TYPE COVERAGE ═══════════════════ -->
+  <section>
+    <span class="section-tag">유형별 분석</span>
+    <h2>출제 문법 유형 — 전 유형 커버</h2>
+
+    <p style="margin-bottom:24px;">실제 시험에 출제된 4대 핵심 문법이 리마크 대비 자료에서 모두 집중 훈련되었습니다.</p>
+
+    <div class="grammar-match">
+      <div class="grammar-box">
+        <h4><span class="check">&#10003;</span> to부정사 형용사적 용법</h4>
+        <p>명사 뒤에서 수식하는 to부정사</p>
+        <p>전치사 동반 규칙 (a chair to sit on)</p>
+        <div class="example">실제 시험 출제: place to park<br>리마크 연습: 자체 문법 워크북 1과 + 동형 모의고사</div>
+      </div>
+      <div class="grammar-box">
+        <h4><span class="check">&#10003;</span> make + O + C (5형식)</h4>
+        <p>목적어를 ~하게 만들다</p>
+        <p>목적격 보어에 형용사 (부사 X)</p>
+        <div class="example">실제 시험 출제: made us nervous<br>리마크 연습: 동형 모의고사 + 자체 문법 워크북 1과</div>
+      </div>
+      <div class="grammar-box">
+        <h4><span class="check">&#10003;</span> 간접의문문</h4>
+        <p>의문사 + 주어 + 동사 어순</p>
+        <p>think/believe와 함께 쓸 때 의문사 전치</p>
+        <div class="example">실제 시험 출제: why people like Snow White / where she lives<br>리마크 연습: 자체 문법 워크북 2과 + 동형 모의고사</div>
+      </div>
+      <div class="grammar-box">
+        <h4><span class="check">&#10003;</span> want + O + to-V</h4>
+        <p>목적어가 ~하기를 원하다</p>
+        <p>hope 구문과의 전환</p>
+        <div class="example">실제 시험 출제: 서답형 + 선택형 다수<br>리마크 연습: 동형 모의고사 (hope → want 전환 훈련)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FULL COVERAGE TABLE ═══════════════════ -->
+  <section>
+    <span class="section-tag">상세 대조</span>
+    <h2>선택형 출제 유형별 적중 현황</h2>
+
+    <table class="hit-table">
+      <thead>
+        <tr>
+          <th style="width:60px;">문항</th>
+          <th>실제 시험 출제 내용</th>
+          <th style="width:200px;">리마크 대비 자료</th>
+          <th style="width:80px;">적중</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>대화 흐름 파악 (인사 표현 선택)</td>
+          <td>자체 교재 Communication</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>대화 내용 일치/불일치 (Ottawa 철자)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td>대화 빈칸 추론 (감정 표현)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td>밑줄 ⓐ~ⓔ 어법 설명 (1과 본문)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td>to부정사 용법 구분 (to see와 같은 쓰임)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td>ⓐ~ⓔ 어색한 부분 바르게 고치기 (1과 JAN 20)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>7</strong></td>
+          <td>본문 읽고 답할 수 없는 질문 (1과)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>8-9</strong></td>
+          <td>1과 본문 어법 오류 개수 + 제목 추론</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>10</strong></td>
+          <td>어법 선택 (gone/went, excited/exciting)</td>
+          <td>자체 교재 실전문제</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>11</strong></td>
+          <td>1과 본문 내용 이해 (Halla & Olle)</td>
+          <td>동형 모의고사 + 본문 워크북</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>12</strong></td>
+          <td>2과 본문 (Henry의 BRT 문자) 내용 파악</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>13</strong></td>
+          <td>2과 본문 내용 일치 (facial expressions)</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>14</strong></td>
+          <td>간접의문문 어순 (A)(B)(C) 바르게 연결</td>
+          <td>동형 모의고사 + 문법 워크북</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>15</strong></td>
+          <td>영영풀이 (expression, emoji 등)</td>
+          <td>동형 모의고사 + 단어장</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>16</strong></td>
+          <td>밑줄 친 표현 의미 파악 (2과 본문)</td>
+          <td>자체 교재 실전문제 + 본문 워크북</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>17</strong></td>
+          <td>간접의문문 문장 중 어법상 올바른 것</td>
+          <td>동형 모의고사 + 문법 워크북</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>18</strong></td>
+          <td>2과 본문 (pick up the phone) 내용 이해</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">완전 적중</span></td>
+        </tr>
+        <tr>
+          <td><strong>19-20</strong></td>
+          <td>어법 종합 + 내용 파악</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-hit">유형 적중</span></td>
+        </tr>
+        <tr style="background:#fffde7;">
+          <td><strong>서답형<br>1-2</strong></td>
+          <td>place to park / made us nervous /<br>why people like Snow White / where she lives</td>
+          <td>동형 모의고사</td>
+          <td><span class="badge-perfect">정답 일치</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ═══════════════════ SUMMARY ═══════════════════ -->
+  <section>
+    <span class="section-tag">종합</span>
+    <h2>리마크의 내신 대비는 다릅니다</h2>
+
+    <div class="callout">
+      <h3>단순한 문제 풀이가 아닌, 출제 원리를 파악하는 훈련</h3>
+      <p style="margin-bottom:16px;">리마크는 단순히 "많은 문제를 풀게" 하지 않습니다. 교과서의 <span class="callout-highlight">출제 가능한 포인트를 역설계</span>하고, 실제 시험과 동일한 형태의 동형 모의고사로 <span class="callout-highlight">시험 경험을 미리 제공</span>합니다.</p>
+      <p>이번 미사강변중 2학년 영어 중간고사에서 서답형 전 문항 적중은 우연이 아닙니다. <span class="callout-highlight">교과서 문법 포인트 분석 → 전국 동일 교과서 기출 패턴 분석 → 학교별 출제 경향 반영</span>이라는 체계적인 과정의 결과입니다.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num" style="font-size:24px;">12종</div>
+        <div class="stat-label">과별 대비 자료</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="font-size:24px;">50+</div>
+        <div class="stat-label">실전 연습 문항</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="font-size:24px;">4대</div>
+        <div class="stat-label">핵심 문법 전 유형 훈련</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="font-size:24px;">D-5</div>
+        <div class="stat-label">동형 모의고사 최종 점검</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<div class="footer">
+  <div class="footer-logo">리마크에듀</div>
+  <p>경기도 하남시 미사 | 리마크영어국어학원</p>
+  <p style="margin-top:8px; font-size:12px; color:#bbb;">2026 1학기 중간고사 적중 분석 리포트 | 미사강변중학교 2학년 영어</p>
+</div>
+
+</body>
+</html>
